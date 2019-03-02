@@ -1,0 +1,9 @@
+<h1>実績</h1>
+
+<ul>
+  <% @achievements.each do |achievement| %>
+  <li><%= link_to achievement.title, achievement %></li>
+  <% end %>
+</ul>
+
+<%= link_to '実績を作る', new_achievement_path %>
