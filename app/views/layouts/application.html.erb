@@ -10,6 +10,9 @@
   </head>
 
   <body>
+    <%= link_to 'Twitterログイン', '/auth/twitter' %>
+    <%= link_to 'ログアウト', logout_path %>
+    <%= link_to current_user.nickname, user_path(current_user.id) if current_user %>
     <%= yield %>
   </body>
 </html>
