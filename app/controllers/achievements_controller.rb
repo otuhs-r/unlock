@@ -5,10 +5,6 @@ class AchievementsController < ApplicationController
     @achievements = Achievement.all
   end
 
-  def show
-    @achievement = Achievement.find(params[:id])
-  end
-
   def new
     @achievement = Achievement.new
   end
@@ -17,7 +13,7 @@ class AchievementsController < ApplicationController
     @achievement = Achievement.new(achievement_params)
 
     if @achievement.save
-      redirect_to @achievement
+      redirect_to achievements_path
     else
       render :new
     end

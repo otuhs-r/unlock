@@ -1,9 +1,25 @@
-<h1>実績</h1>
+<br>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <%= link_to 'ホーム', root_path, class: "breadcrumb-item" %>
+    <li class="breadcrumb-item active" aria-current="page">実績一覧</li>
+  </ol>
+</nav>
 
+<div class="row">
+  <div class="col-lg-2 offset-lg-10 col-md-3 offset-md-9 col-6 offset-6">
+  <%= link_to '実績を登録する', new_achievement_path, class: "btn btn-success" %>
+  </div>
+</div>
+<hr>
 <ul>
   <% @achievements.each do |achievement| %>
-  <li><%= link_to achievement.title, achievement %></li>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><%= achievement.title %></h5>
+    </div>
+  </div>
+  <br>
   <% end %>
 </ul>
 
-<%= link_to '実績を作る', new_achievement_path %>
