@@ -1,10 +1,10 @@
-<p id="notice"><%= notice %></p>
+<br>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <%= link_to 'ホーム', root_path, class: "breadcrumb-item" %>
+    <li class="breadcrumb-item active" aria-current="page">マイページ</li>
+  </ol>
+</nav>
 
-<p>
-  <%= image_tag @user.image_url %>
-</p>
-<p>
-  <%= @user.nickname %>
-</p>
-
-<%= link_to 'Back', achievements_path %>
+<%= image_tag @user.image_url, class: "rounded-circle" %>
+<%= @user.nickname %>
