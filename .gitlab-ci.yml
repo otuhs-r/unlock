@@ -1,0 +1,59 @@
+image: ruby:2.5.1
+
+cache:
+  paths:
+    - vendor/ruby
+
+stages:
+  - static_code_analysis
+  - test
+  - deploy
+
+before_script:
+  - ruby -v
+  - apt-get update -q && apt-get install nodejs -yqq
+  - gem install bundler  --no-ri --no-rdoc
+  - bundle install -j $(nproc) --path vendor
+
+
+rubocop:
+  stage: static_code_analysis
+  script:
+    - bundle exec rubocop
+  only:
+    - branches
+
+rspec:
+  stage: test
+  services:
+    - postgres:latest
+  script:
+    - cp config/database.yml.gitlab config/database.yml
+    - RAILS_ENV=test bundle exec rails db:create db:schema:load
+    - RAILS_ENV=test bundle exec rails db:migrate
+    - bundle exec rspec
+  artifacts:
+    paths:
+      - coverage/
+
+pages:
+  stage: deploy
+  dependencies:
+    - rspec
+  script:
+    - mv coverage/ public/
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - master
+
+deploy_staging:
+  stage: deploy
+  environment: staging
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=unlock-app-staging --api-key=$HEROKU_API_KEY
+  only:
+    - develop

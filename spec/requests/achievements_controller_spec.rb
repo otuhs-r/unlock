@@ -17,27 +17,6 @@ describe AchievementsController, type: :request do
     end
   end
 
-  describe 'GET #show' do
-    context '実績が存在する場合' do
-      let(:marriage) { create(:marriage) }
-
-      it 'リクエストが成功する' do
-        get achievement_url(marriage.id)
-        expect(response.status).to eq 200
-      end
-
-      it '実績タイトルが表示されている' do
-        get achievement_url(marriage.id)
-        expect(response.body).to include 'Marriage'
-      end
-    end
-
-    context '実績が存在しない場合' do
-      subject { -> { get achievement_url(1) } }
-
-      it { is_expected.to raise_error ActiveRecord::RecordNotFound }
-    end
-  end
 =begin
   describe 'GET #new' do
     let(:user) { create(:user) }
@@ -74,6 +53,6 @@ describe AchievementsController, type: :request do
       it '実績が登録されない' do
       end
     end
-  end 
+  end
 =end
 end
