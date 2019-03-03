@@ -1,14 +1,28 @@
-<h1>新規実績</h1>
+<br>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <%= link_to 'ホーム', root_path, class: "breadcrumb-item" %>
+    <%= link_to '実績一覧', achievements_path, class: "breadcrumb-item" %>
+    <li class="breadcrumb-item active" aria-current="page">実績を登録</li>
+  </ol>
+</nav>
 
 <%= form_with(model: @achievement, local: true) do |form| %>
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="row">
+    <div class="col-12">
+      <div class="form_group">
+        <%= form.label :title %>
+        <%= form.text_field :title, class: "form-control" %>
+      </div>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <br>
+  <div class="row">
+    <div class="col-5">
+      <div class="actions">
+        <%= form.submit class: "btn btn-success" %>
+        <%= link_to '戻る', achievements_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
   </div>
 <% end %>
-
-<%= link_to '戻る', achievements_path %>
