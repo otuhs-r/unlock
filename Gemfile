@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap'
 gem 'jquery-rails'
+gem 'mini_racer'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'rubocop', require: false
