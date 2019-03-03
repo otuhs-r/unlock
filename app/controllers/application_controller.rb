@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   def login_required
     @current_user = current_user
-    redirect_to root_path, { alert: 'ログインしてください' } unless @current_user
+    redirect_to root_path, alert: 'ログインしてください' unless @current_user
   end
 
   private

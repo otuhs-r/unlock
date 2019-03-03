@@ -1,5 +1,5 @@
 class AchievementsController < ApplicationController
-  before_action :login_required, only: [:new, :create]
+  before_action :login_required, only: %i[new create]
 
   def index
     @achievements = Achievement.all
@@ -20,8 +20,9 @@ class AchievementsController < ApplicationController
   end
 
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def achievement_params
-      params.require(:achievement).permit(:title)
-    end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def achievement_params
+    params.require(:achievement).permit(:title)
+  end
 end

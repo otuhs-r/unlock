@@ -74,6 +74,6 @@ describe AchievementsController, type: :request do
       it '実績が登録されない' do
       end
     end
-  end 
+  end
 =end
 end
