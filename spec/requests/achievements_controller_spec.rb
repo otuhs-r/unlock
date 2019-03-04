@@ -17,11 +17,9 @@ describe AchievementsController, type: :request do
     end
   end
 
-=begin
   describe 'GET #new' do
-    let(:user) { create(:user) }
-
     it 'リクエストが成功する' do
+      allow_any_instance_of(ApplicationController).to receive(:login_required)
       get new_achievement_url
       expect(response.status).to eq 200
     end
@@ -29,6 +27,8 @@ describe AchievementsController, type: :request do
 
   describe 'POST #create' do
     context 'パラメータが妥当な場合' do
+      before { allow_any_instance_of(ApplicationController).to receive(:login_required) }
+
       it 'リクエストが成功する' do
         post achievements_url, params: { achievement: attributes_for(:achievement) }
         expect(response.status).to eq 302
@@ -42,17 +42,23 @@ describe AchievementsController, type: :request do
 
       it 'リダイレクトする' do
         post achievements_url, params: { achievement: attributes_for(:achievement) }
-        expect(response).to redirect_to Achievement.last
+        expect(response).to redirect_to achievements_url
       end
     end
 
     context 'パラメータが不正な場合' do
+      before { allow_any_instance_of(ApplicationController).to receive(:login_required) }
+
       it 'リクエストが成功する' do
+        post achievements_url, params: { achievement: attributes_for(:achievement, :invalid) }
+        expect(response.status).to eq 200
       end
 
       it '実績が登録されない' do
+        expect do
+          post achievements_url, params: { achievement: attributes_for(:achievement, :invalid) }
+        end.to_not change(Achievement, :count)
       end
     end
   end
-=end
 end
