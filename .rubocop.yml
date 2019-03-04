@@ -1,7 +1,7 @@
 Metrix/LineLength:
   Max: 120
 Metrics/BlockLength:
-  Max: 35
+  Max: 120
 Style/NumericLiterals:
   Enabled: false
 Style/Documentation:
