@@ -8,3 +8,16 @@
 
 <%= image_tag @user.image_url, class: "rounded-circle" %>
 <%= @user.nickname %>
+<hr>
+<div class="row">
+  <% @user.achievements.each do |achievement| %>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= achievement.title %></h5>
+        </div>
+      </div>
+      <br>
+    </div>
+  <% end %>
+</div>
