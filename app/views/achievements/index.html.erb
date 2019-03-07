@@ -14,14 +14,16 @@
 <hr>
 <div class="row">
   <% @achievements.each do |achievement| %>
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title"><%= achievement.title %></h5>
-          <%= button_to 'ブックマーク', user_bookmarks_path(current_user), params: { bookmark: { achievement_id: achievement.id } }, class: "btn btn-primary" %>
+    <% unless achievement.users.include?(current_user) %>
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header"><%= achievement.title %></div>
+          <div class="card-body">
+            <%= button_to 'ブックマーク', user_bookmarks_path(current_user), params: { bookmark: { achievement_id: achievement.id } }, class: "btn btn-primary" if current_user %>
+          </div>
         </div>
+        <br>
       </div>
-      <br>
-    </div>
+    <% end %>
   <% end %>
 </div>

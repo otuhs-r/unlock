@@ -1,5 +1,6 @@
 class BookmarksController < ApplicationController
   before_action :login_required 
+  before_action :correct_user
 
   def create
     @bookmark = Bookmark.new(user_id: current_user.id,
@@ -15,24 +16,32 @@ class BookmarksController < ApplicationController
   end
 
   def update
-    @bookmark = Bookmark.find(params[:id])
-
-    if @bookmark.update(bookmark_params)
-      redirect_to achievements_path
+    @bookmark = current_user.bookmarks.find(params[:id])
+    path = if @bookmark.locked?
+      @bookmark.unlocked!
+      user_path(current_user)
     else
-      redirect_to achievements_path
+      @bookmark.locked!
+      edit_user_path(current_user)
     end
+    @bookmark.save
+    redirect_to path
   end
 
   def destroy
-    @bookmark = Bookmark.find(params[:id])
+    @bookmark = current_user.bookmarks.find(params[:id])
     @bookmark.destroy
-    redirect_to achievements_path
+    redirect_to user_path(current_user)
   end
 
   private
 
   def bookmark_params
-    params.require(:bookmark).permit(:achievement_id, :status)
+    params.require(:bookmark).permit(:achievement_id)
+  end
+
+  def correct_user
+    user = User.find(params[:user_id])
+    redirect_to root_path unless user == current_user
   end
 end

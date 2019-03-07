@@ -1,0 +1,27 @@
+<br>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <%= link_to 'ホーム', root_path, class: "breadcrumb-item" %>
+    <%= link_to 'マイページ', user_path(current_user), class: "breadcrumb-item" %>
+    <li class="breadcrumb-item active" aria-current="page">編集</li>
+  </ol>
+</nav>
+
+<%= image_tag current_user.image_url, class: "rounded-circle" %>
+<%= current_user.nickname %>
+<hr>
+<div class="row">
+  <% current_user.bookmarks.each do |bookmark| %>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header"><%= bookmark.achievement.title %></div>
+        <div class="card-body">
+          <p><%= bookmark.status %><p>
+          <%= button_to '解除取消', user_bookmark_path(current_user, bookmark), method: :patch, class: "btn btn-primary" if bookmark.unlocked? %>
+          <%= button_to 'ブックマーク取り消し', user_bookmark_path(current_user, bookmark), method: :delete, class: "btn btn-danger" %>
+        </div>
+      </div>
+      <br>
+    </div>
+  <% end %>
+</div>

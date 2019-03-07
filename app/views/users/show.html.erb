@@ -8,13 +8,16 @@
 
 <%= image_tag @user.image_url, class: "rounded-circle" %>
 <%= @user.nickname %>
+<%= link_to '登録実績編集', edit_user_path(current_user), class: "btn btn-info" if @user == current_user %>
 <hr>
 <div class="row">
-  <% @user.achievements.each do |achievement| %>
+  <% @user.bookmarks.each do |bookmark| %>
     <div class="col-12">
       <div class="card">
+        <div class="card-header"><%= bookmark.achievement.title %></div>
         <div class="card-body">
-          <h5 class="card-title"><%= achievement.title %></h5>
+          <p><%= bookmark.status %><p>
+          <%= button_to '解除', user_bookmark_path(current_user, bookmark), method: :patch, class: "btn btn-primary" if @user == current_user && bookmark.locked? %>
         </div>
       </div>
       <br>

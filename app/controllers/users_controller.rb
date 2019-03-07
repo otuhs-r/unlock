@@ -3,6 +3,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def edit
+  end
+
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
