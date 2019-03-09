@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_06_105203) do
+ActiveRecord::Schema.define(version: 2019_03_09_085027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +28,7 @@ ActiveRecord::Schema.define(version: 2019_03_06_105203) do
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["achievement_id"], name: "index_bookmarks_on_achievement_id"
-    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+    t.index ["user_id", "achievement_id"], name: "index_bookmarks_on_user_id_and_achievement_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
