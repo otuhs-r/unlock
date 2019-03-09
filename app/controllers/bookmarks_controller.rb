@@ -24,8 +24,12 @@ class BookmarksController < ApplicationController
       @bookmark.locked!
       edit_user_path(current_user)
     end
-    @bookmark.save
-    redirect_to path
+
+    respond_to do |format|
+      @bookmark.save
+      format.html { redirect_to path }
+      format.js
+    end
   end
 
   def destroy

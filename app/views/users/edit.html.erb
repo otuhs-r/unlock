@@ -1,12 +1,4 @@
 <br>
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <%= link_to 'ホーム', root_path, class: "breadcrumb-item" %>
-    <%= link_to 'マイページ', user_path(current_user), class: "breadcrumb-item" %>
-    <li class="breadcrumb-item active" aria-current="page">編集</li>
-  </ol>
-</nav>
-
 <%= image_tag current_user.image_url, class: "rounded-circle" %>
 <%= current_user.nickname %>
 <hr>
