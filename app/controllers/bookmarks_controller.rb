@@ -1,33 +1,21 @@
 class BookmarksController < ApplicationController
-  before_action :login_required 
+  before_action :login_required
   before_action :correct_user
 
   def create
     @bookmark = Bookmark.new(user_id: current_user.id,
                              achievement_id: bookmark_params[:achievement_id],
-                             status: :locked
-                            )
-
-    if @bookmark.save
-      redirect_to achievements_path
-    else
-      redirect_to achievements_path
-    end
+                             status: :locked)
+    @bookmark.save
+    redirect_to achievements_path
   end
 
   def update
     @bookmark = current_user.bookmarks.find(params[:id])
-    path = if @bookmark.locked?
-      @bookmark.unlocked!
-      user_path(current_user)
-    else
-      @bookmark.locked!
-      edit_user_path(current_user)
-    end
+    @bookmark.reverse.save
 
     respond_to do |format|
-      @bookmark.save
-      format.html { redirect_to path }
+      format.html { redirect_back(fallback_location: user_path(current_user)) }
       format.js
     end
   end

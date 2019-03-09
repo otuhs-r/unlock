@@ -6,4 +6,9 @@ class Bookmark < ApplicationRecord
   validates :achievement_id, presence: true
 
   enum status: { locked: 0, unlocked: 1 }
+
+  def reverse
+    locked? ? unlocked! : locked!
+    self
+  end
 end
