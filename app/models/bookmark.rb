@@ -1,7 +1,7 @@
 class Bookmark < ApplicationRecord
   belongs_to :user
   belongs_to :achievement
-  validates :user_id, uniqueness: { scope: [:achievement_id] }
+  validates :achievement_id, uniqueness: { scope: [:user_id] }
   validates :user_id, presence: true
   validates :achievement_id, presence: true
 
