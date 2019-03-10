@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :bookmarks
+  has_many :achievements, through: :bookmarks
+
   def self.find_or_create_from_auth_hash(auth_hash)
     provider = auth_hash[:provider]
     uid = auth_hash[:uid]

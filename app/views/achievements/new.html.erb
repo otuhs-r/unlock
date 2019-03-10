@@ -1,12 +1,4 @@
 <br>
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <%= link_to 'ホーム', root_path, class: "breadcrumb-item" %>
-    <%= link_to '実績一覧', achievements_path, class: "breadcrumb-item" %>
-    <li class="breadcrumb-item active" aria-current="page">実績を登録</li>
-  </ol>
-</nav>
-
 <%= form_with(model: @achievement, local: true) do |form| %>
   <div class="row">
     <div class="col-12">

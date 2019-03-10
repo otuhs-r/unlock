@@ -2,7 +2,7 @@ class AchievementsController < ApplicationController
   before_action :login_required, only: %i[new create]
 
   def index
-    @achievements = Achievement.all
+    @achievements = Achievement.includes(:users)
   end
 
   def new

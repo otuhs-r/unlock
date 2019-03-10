@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_28_115111) do
+ActiveRecord::Schema.define(version: 2019_03_09_085027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(version: 2019_02_28_115111) do
     t.index ["title"], name: "index_achievements_on_title"
   end
 
+  create_table "bookmarks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "achievement_id"
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index %w[user_id achievement_id], name: "index_bookmarks_on_user_id_and_achievement_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider"
     t.string "uid"
@@ -29,4 +38,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_115111) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "bookmarks", "achievements"
+  add_foreign_key "bookmarks", "users"
 end
