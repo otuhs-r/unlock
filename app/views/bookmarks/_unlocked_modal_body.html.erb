@@ -1,1 +1,18 @@
-実績解除！
+<div class="row">
+  <div class="mx-auto" style="width: 200px;">
+    <h5>実績を解除しました！</h5>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <%= image_tag(images_ogp_path(params: { text: bookmark.achievement.title }), class: "img-thumbnail") %>
+  </div>
+</div>
+<br>
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
+   data-text="実績を解除しました!"
+   data-url="<%= user_url(bookmark.user) %>"
+   data-lang="ja"
+   target="_blank"
+   rel="noopener noreferrer">Tweet</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
