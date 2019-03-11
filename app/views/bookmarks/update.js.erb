@@ -1,3 +1,7 @@
 $("#modal-body-<%= @bookmark.id %>").html('<%= j(render "unlocked_modal_body") %>')
 $("#modal-footer-<%= @bookmark.id %>").html('<%= j(render "unlocked_modal_footer") %>')
 $("#unlock_button-<%= @bookmark.id %>").remove()
+$("meta[name='description']").attr("content", "@<%= @bookmark.user.nickname %> さんが実績を解除しました")
+$("meta[property='og:description']").attr("content", "@<%= @bookmark.user.nickname %> さんが実績を解除しました")
+$("meta[property='og:title']").attr("content", "<%= @bookmark.achievement.title %>")
+$("meta[property='og:image']").attr("content", "<%= images_ogp_url(params: { text: @bookmark.achievement.title }) %>")
