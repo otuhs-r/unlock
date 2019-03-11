@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   resources :achievements, only: %i[index new create]
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/logout' => 'sessions#destroy'
+  get 'images/ogp.png', to: 'images#ogp', as: 'images_ogp'
 end

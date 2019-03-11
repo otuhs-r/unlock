@@ -37,6 +37,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap'
 gem 'jquery-rails'
+gem 'meta-tags'
+gem 'mini_magick'
 gem 'mini_racer'
 gem 'omniauth'
 gem 'omniauth-twitter'
