@@ -62,6 +62,42 @@ describe BookmarksController, type: :request do
     end
   end
 
+  describe 'GET #show' do
+    context '解除済の実績の場合' do
+      let(:user) { create(:user) }
+      let(:achievement) { create(:achievement) }
+      let(:bookmark) { create(:bookmark, status: :unlocked, user: user, achievement: achievement) }
+
+      it 'リクエストが成功する' do
+        get user_bookmark_path(user, bookmark)
+        expect(response.status).to eq 200
+      end
+
+      it 'ユーザ名が表示されている' do
+        get user_bookmark_path(user, bookmark)
+        expect(response.body).to include 'test_user'
+      end
+    end
+
+    context '未解除の実績の場合' do
+      let(:user) { create(:user) }
+      let(:achievement) { create(:achievement) }
+      let(:bookmark) { create(:bookmark, user: user, achievement: achievement) }
+
+      it 'リダイレクトする' do
+        get user_bookmark_path(user, bookmark)
+        expect(response).to redirect_to root_url
+      end
+    end
+
+    context 'ブックマークが存在しない場合' do
+      let(:user) { create(:user) }
+
+      subject { -> { get user_bookmark_path(user, 1) } }
+      it { is_expected.to raise_error ActiveRecord::RecordNotFound }
+    end
+  end
+
   describe 'PATCH #update' do
     context 'パラメータが妥当な場合' do
       let(:user) { create(:user) }

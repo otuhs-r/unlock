@@ -1,6 +1,6 @@
 class BookmarksController < ApplicationController
-  before_action :login_required
-  before_action :correct_user
+  before_action :login_required, except: :show
+  before_action :correct_user, except: :show
 
   def create
     @bookmark = Bookmark.new(user_id: current_user.id,
@@ -8,6 +8,12 @@ class BookmarksController < ApplicationController
                              status: :locked)
     @bookmark.save
     redirect_to achievements_path
+  end
+
+  def show
+    @user = User.find(params[:user_id])
+    @bookmark = @user.bookmarks.find(params[:id])
+    redirect_to root_path if @bookmark.locked?
   end
 
   def update
