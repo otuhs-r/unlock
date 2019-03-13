@@ -1,19 +1,27 @@
 <br>
 <%= image_tag current_user.image_url, class: "rounded-circle" %>
 <%= current_user.nickname %>
-<hr>
-<div class="row">
-  <% current_user.bookmarks.each do |bookmark| %>
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header"><%= bookmark.achievement.title %></div>
-        <div class="card-body">
-          <p><%= bookmark.status %><p>
-          <%= button_to '解除取消', user_bookmark_path(current_user, bookmark), method: :patch, class: "btn btn-primary" if bookmark.unlocked? %>
-          <%= button_to 'ブックマーク取り消し', user_bookmark_path(current_user, bookmark), method: :delete, class: "btn btn-danger" %>
-        </div>
-      </div>
-      <br>
+<br>
+<br>
+
+<ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-unlocked-tab" data-toggle="pill" href="#pills-unlocked" role="tab" aria-controls="pills-unlocked" aria-selected="true">解除済</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-locked-tab" data-toggle="pill" href="#pills-locked" role="tab" aria-controls="pills-locked" aria-selected="false">未解除</a>
+  </li>
+</ul>
+<br>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-unlocked" role="tabpanel" aria-labelledby="pills-unlocked-tab">
+    <div class="row">
+      <%= render 'bookmarks_edit', { bookmarks: @unlocked_bookmarks } %>
     </div>
-  <% end %>
+  </div>
+  <div class="tab-pane fade" id="pills-locked" role="tabpanel" aria-labelledby="pills-locked-tab">
+    <div class="row">
+      <%= render 'bookmarks_edit', { bookmarks: @locked_bookmarks } %>
+    </div>
+  </div>
 </div>
