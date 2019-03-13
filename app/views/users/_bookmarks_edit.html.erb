@@ -1,0 +1,12 @@
+<% bookmarks.each do |bookmark| %>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header"><%= bookmark.achievement.title %></div>
+      <div class="card-body">
+        <%= button_to '解除取消', user_bookmark_path(current_user, bookmark), method: :patch, class: "btn btn-primary" if bookmark.unlocked? %>
+        <%= button_to 'ブックマーク取り消し', user_bookmark_path(current_user, bookmark), method: :delete, class: "btn btn-danger" %>
+      </div>
+    </div>
+    <br>
+  </div>
+<% end %>

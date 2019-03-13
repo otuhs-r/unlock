@@ -2,6 +2,8 @@ describe UsersController, type: :request do
   describe 'GET #show' do
     context 'ユーザが存在する' do
       let(:user) { create(:user) }
+      let!(:achievement) { create(:achievement) }
+      let!(:bookmark) { create(:bookmark, status: :unlocked, user: user, achievement: achievement) }
 
       it 'リクエストが成功する' do
         get user_url(user.id)
@@ -11,6 +13,7 @@ describe UsersController, type: :request do
       it 'ユーザ名が表示される' do
         get user_url(user.id)
         expect(response.body).to include 'test_user'
+        expect(response.body).to include 'test_title'
       end
     end
 
@@ -23,6 +26,8 @@ describe UsersController, type: :request do
   describe 'GET #edit' do
     context 'ユーザが存在する' do
       let(:user) { create(:user) }
+      let!(:achievement) { create(:achievement) }
+      let!(:bookmark) { create(:bookmark, status: :unlocked, user: user, achievement: achievement) }
 
       context '自分のページ' do
         before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user) }
@@ -35,6 +40,7 @@ describe UsersController, type: :request do
         it 'ユーザ名が表示される' do
           get edit_user_url(user.id)
           expect(response.body).to include 'test_user'
+          expect(response.body).to include 'test_title'
         end
       end
 
