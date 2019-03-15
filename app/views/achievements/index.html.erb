@@ -12,6 +12,11 @@
         <div class="card">
           <div class="card-header"><%= achievement.title %></div>
           <div class="card-body">
+            <% achievement.tags.each do |tag| %>
+              <%= link_to tag.name, tag_path(tag), class: "badge badge-info" %>
+            <% end %>
+            <br>
+            <br>
             <%= button_to 'ブックマーク', user_bookmarks_path(current_user), params: { bookmark: { achievement_id: achievement.id } }, class: "btn btn-primary" if current_user %>
           </div>
         </div>

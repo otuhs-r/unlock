@@ -3,6 +3,11 @@
     <div class="card">
       <div class="card-header"><%= bookmark.achievement.title %></div>
       <div class="card-body">
+        <% bookmark.achievement.tags.each do |tag| %>
+          <%= link_to tag.name, tag_path(tag), class: "badge badge-info" %>
+        <% end %>
+        <br>
+        <br>
         <% if bookmark.user == current_user && bookmark.locked? %>
           <button type="button" class="btn btn-primary" id="unlock_button-<%= bookmark.id %>" data-toggle="modal" data-target="#unlockModal-<%= bookmark.id %>" data-keyboard="false" data-backdrop="static">
             実績解除
