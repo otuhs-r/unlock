@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :bookmarks, only: %i[create show update destroy]
   end
   resources :achievements, only: %i[index new create]
+  resources :tags, only: %i[index show]
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/logout' => 'sessions#destroy'
   get 'images/ogp.png', to: 'images#ogp', as: 'images_ogp'

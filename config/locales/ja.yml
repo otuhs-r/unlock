@@ -12,6 +12,7 @@ ja:
     attributes:
       achievement:
         title: タイトル
+        tag_list: タグ
   date:
     abbr_day_names:
     - 日

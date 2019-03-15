@@ -18,7 +18,7 @@ describe BookmarksController, type: :request do
 
       it 'リダイレクトする' do
         post user_bookmarks_url(user), params: { bookmark: { achievement_id: achievement.id } }
-        expect(response).to redirect_to achievements_url
+        expect(response).to redirect_to root_url
       end
     end
 
@@ -39,7 +39,7 @@ describe BookmarksController, type: :request do
 
       it 'リダイレクトする' do
         post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }
-        expect(response).to redirect_to achievements_url
+        expect(response).to redirect_to root_url
       end
     end
 

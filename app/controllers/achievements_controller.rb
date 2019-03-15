@@ -23,6 +23,6 @@ class AchievementsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def achievement_params
-    params.require(:achievement).permit(:title)
+    params.require(:achievement).permit(:title, :tag_list)
   end
 end

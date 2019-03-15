@@ -1,0 +1,8 @@
+<br>
+<h4>タグ一覧</h4>
+<hr>
+<div class="list-group">
+  <% @tags.each do |tag| %>
+    <%= link_to "#{tag.name} (#{tag.taggings_count})", tag_path(tag), class: "list-group-item list-group-item-action" %>
+  <% end %>
+</div>

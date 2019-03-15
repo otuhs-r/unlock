@@ -7,7 +7,7 @@ class BookmarksController < ApplicationController
                              achievement_id: bookmark_params[:achievement_id],
                              status: :locked)
     @bookmark.save
-    redirect_to achievements_path
+    redirect_back(fallback_location: root_path)
   end
 
   def show

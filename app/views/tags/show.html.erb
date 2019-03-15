@@ -1,0 +1,23 @@
+<br>
+<h5><span class="badge badge-info"><%= @tag.name %></span> がタグ付けされている実績</h5>
+<br>
+<div class="row">
+  <% @achievements.each do |achievement| %>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header"><%= achievement.title %></div>
+        <div class="card-body">
+          <% achievement.tags.each do |tag| %>
+            <%= link_to tag.name, tag_path(tag), class: "badge badge-info" %>
+          <% end %>
+          <br>
+          <br>
+          <% if current_user && !achievement.users.include?(current_user) %>
+            <%= button_to 'ブックマーク', user_bookmarks_path(current_user), params: { bookmark: { achievement_id: achievement.id } }, class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+      <br>
+    </div>
+  <% end %>
+</div>
