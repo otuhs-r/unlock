@@ -1,12 +1,18 @@
-<% bookmarks.each do |bookmark| %>
-  <div class="col-12">
-    <div class="card">
-      <div class="card-header"><%= bookmark.achievement.title %></div>
-      <div class="card-body">
-        <%= button_to '解除取消', user_bookmark_path(current_user, bookmark), method: :patch, class: "btn btn-primary" if bookmark.unlocked? %>
-        <%= button_to 'ブックマーク取り消し', user_bookmark_path(current_user, bookmark), method: :delete, class: "btn btn-danger" %>
+<div class="row">
+  <% bookmarks.each do |bookmark| %>
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"><%= bookmark.achievement.title %></span>
+          <% bookmark.achievement.tags.each do |tag| %>
+            <%= link_to "##{tag.name}", tag_path(tag), class: "chip" %>
+          <% end %>
+        </div>
+        <div class="card-action">
+          <%= link_to '解除取消', user_bookmark_path(current_user, bookmark), method: :patch, class: "btn yellow darken-4" if bookmark.unlocked? %>
+          <%= link_to 'ストック取消', user_bookmark_path(current_user, bookmark), method: :delete, class: "btn red darken-4" %>
+        </div>
       </div>
     </div>
-    <br>
-  </div>
-<% end %>
+  <% end %>
+</div>

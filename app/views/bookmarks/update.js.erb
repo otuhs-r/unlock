@@ -1,2 +1,2 @@
 $("#modal-body-<%= @bookmark.id %>").html('<%= j(render "unlocked_modal_body", { bookmark: @bookmark }) %>')
-$("#modal-footer-<%= @bookmark.id %>").html('<%= j(render "unlocked_modal_footer") %>')
+$("#modal-footer-<%= @bookmark.id %>").remove()

@@ -11,9 +11,38 @@
 // about supported directives.
 //
 //= require jquery3
-//= require popper
-//= require bootstrap-sprockets
 //= require rails-ujs
+//= require materialize
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+$(document).on('turbolinks:load', function() {
+  $('.sidenav').sidenav();
+  $(".dropdown-trigger").dropdown();
+  $('.fixed-action-btn').floatingActionButton();
+  $('.tabs').tabs();
+  $('.chips').chips({
+    placeholder: '5つまで',
+    limit: 5,
+    onChipAdd: function() {
+      data = M.Chips.getInstance($('.chips')).chipsData;
+      document.getElementById('achievement_tag_list').value = data.map(x => x.tag);
+    },
+    onChipDelete: function() {
+      data = M.Chips.getInstance($('.chips')).chipsData;
+      document.getElementById('achievement_tag_list').value = data.map(x => x.tag);
+    }
+  });
+  $('.modal').modal({
+    onCloseEnd: function() {
+      if (document.getElementById('unlock-sign') != null) {
+        window.location.reload();
+      }
+    } 
+  });
+});
+
+$(document).on('turbolinks:before-visit', function() {
+  M.Sidenav.getInstance(document.querySelector('#mobile')).destroy();
+});
