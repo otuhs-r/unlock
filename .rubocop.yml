@@ -25,7 +25,7 @@ Style/StderrPuts:
 Style/EmptyMethod:
   Enabled: false
 Metrics/AbcSize:
-  Max: 16
+  Max: 18
 Metrics/CyclomaticComplexity:
   Max: 8
 Metrics/PerceivedComplexity:

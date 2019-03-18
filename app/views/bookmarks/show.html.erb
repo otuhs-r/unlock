@@ -10,21 +10,30 @@
 <br>
 <div class="row">
   <div class="col-12">
-    <h4><%= @user.nickname %> さんが実績を解除しました！</h4>
+    <h4><%= "#{@user.nickname} さんが" unless @user == current_user %> 実績を解除しました！</h4>
+    <% if @user == current_user %>
+      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
+         data-text="実績を解除しました!"
+         data-url="<%= user_bookmark_url(current_user, @bookmark) %>"
+         data-lang="ja"
+         target="_blank"
+         rel="noopener noreferrer">Tweet</a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <% end %>
   </div>
 </div>
 <div class="row">
   <% if current_user %>
     <% if @user == current_user %>
       <div class="col s12 col l6">
-          <%= link_to '自分の実績を見る', user_path(current_user), class: "btn orange darken-1 btn-block" %>
+          <%= link_to '自分の実績を見る', user_path(current_user), class: "btn orange btn-block" %>
       </div>
       <div class="col s12 l6">
         <%= link_to 'みんなの実績を見る', achievements_path, class: "btn btn-block" %>
       </div>
     <% else %>
       <div class="col s12 l4">
-        <%= link_to "#{@user.nickname} さんの実績を見る", user_path(@user), class: "btn orange darken-1 btn-block" %>
+        <%= link_to "#{@user.nickname} さんの実績を見る", user_path(@user), class: "btn orange btn-block" %>
       </div>
       <div class="col s12 l4">
         <%= link_to 'みんなの実績を見る', achievements_path, class: "btn btn-outline-secondary btn-block" %>
@@ -35,7 +44,7 @@
     <% end %>
   <% else %>
     <div class="col s12 l4">
-      <%= link_to "#{@user.nickname} さんの実績を見る", user_path(@user), class: "btn orange darken-1 btn-block" %>
+      <%= link_to "#{@user.nickname} さんの実績を見る", user_path(@user), class: "btn orange btn-block" %>
     </div>
     <div class="col s12 l4">
       <%= link_to 'みんなの実績を見る', achievements_path, class: "btn btn-block" %>
