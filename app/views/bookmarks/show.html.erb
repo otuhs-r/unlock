@@ -5,7 +5,7 @@
                    image: images_ogp_url(params: { text: @bookmark.achievement.title })
                  } %>
 <br>
-<%= image_tag(images_ogp_path(params: { text: @bookmark.achievement.title }), class: "img-fluid") %>
+<%= image_tag(images_ogp_path(params: { text: @bookmark.achievement.title }), class: "responsive-img") %>
 <br>
 <br>
 <div class="row">
@@ -13,36 +13,35 @@
     <h4><%= @user.nickname %> さんが実績を解除しました！</h4>
   </div>
 </div>
-<hr>
 <div class="row">
   <% if current_user %>
     <% if @user == current_user %>
-      <div class="col-sm-12 col-lg-6">
-        <%= link_to 'みんなの実績を見る', achievements_path, class: "btn btn-outline-secondary btn-block" %>
+      <div class="col s12 col l6">
+          <%= link_to '自分の実績を見る', user_path(current_user), class: "btn orange darken-1 btn-block" %>
       </div>
-      <div class="col-sm-12 col-lg-6">
-          <%= link_to '自分の実績を見る', user_path(current_user), class: "btn btn-outline-success btn-block" %>
+      <div class="col s12 l6">
+        <%= link_to 'みんなの実績を見る', achievements_path, class: "btn btn-block" %>
       </div>
     <% else %>
-      <div class="col-sm-12 col-lg-4">
-        <%= link_to "#{@user.nickname} さんの実績を見る", user_path(@user), class: "btn btn-outline-primary btn-block" %>
+      <div class="col s12 l4">
+        <%= link_to "#{@user.nickname} さんの実績を見る", user_path(@user), class: "btn orange darken-1 btn-block" %>
       </div>
-      <div class="col-sm-12 col-lg-4">
+      <div class="col s12 l4">
         <%= link_to 'みんなの実績を見る', achievements_path, class: "btn btn-outline-secondary btn-block" %>
       </div>
-      <div class="col-sm-12 col-lg-4">
-          <%= link_to '自分の実績を見る', user_path(current_user), class: "btn btn-outline-success btn-block" %>
+      <div class="col s12 l4">
+          <%= link_to '自分の実績を見る', user_path(current_user), class: "btn light-blue accent-3 btn-block" %>
       </div>
     <% end %>
   <% else %>
-    <div class="col-sm-12 col-lg-4">
-      <%= link_to "#{@user.nickname} さんの実績を見る", user_path(@user), class: "btn btn-outline-primary btn-block" %>
+    <div class="col s12 l4">
+      <%= link_to "#{@user.nickname} さんの実績を見る", user_path(@user), class: "btn orange darken-1 btn-block" %>
     </div>
-    <div class="col-sm-12 col-lg-4">
-      <%= link_to 'みんなの実績を見る', achievements_path, class: "btn btn-outline-secondary btn-block" %>
+    <div class="col s12 l4">
+      <%= link_to 'みんなの実績を見る', achievements_path, class: "btn btn-block" %>
     </div>
-    <div class="col-sm-12 col-lg-4">
-        <%= link_to 'Twitterでログイン', '/auth/twitter', class: "btn btn-outline-success btn-block" %>
+    <div class="col s12 l4">
+        <%= link_to 'ログイン', '/auth/twitter', class: "btn light-blue accent-3 btn-block" %>
     </div>
   <% end %>
 </div>

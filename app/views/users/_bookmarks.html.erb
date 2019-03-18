@@ -1,35 +1,28 @@
-<% bookmarks.each do |bookmark| %>
-  <div class="col-12">
-    <div class="card">
-      <div class="card-header"><%= bookmark.achievement.title %></div>
-      <div class="card-body">
-        <% bookmark.achievement.tags.each do |tag| %>
-          <%= link_to tag.name, tag_path(tag), class: "badge badge-info" %>
-        <% end %>
-        <br>
-        <br>
+<div class="row">
+  <% bookmarks.each do |bookmark| %>
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"><%= bookmark.achievement.title %></span>
+          <% bookmark.achievement.tags.each do |tag| %>
+            <%= link_to "##{tag.name}", tag_path(tag), class: "chip" %>
+          <% end %>
+        </div>
         <% if bookmark.user == current_user && bookmark.locked? %>
-          <button type="button" class="btn btn-primary" id="unlock_button-<%= bookmark.id %>" data-toggle="modal" data-target="#unlockModal-<%= bookmark.id %>" data-keyboard="false" data-backdrop="static">
-            実績解除
-          </button>
-          <div class="modal fade" id="unlockModal-<%= bookmark.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+          <div class="card-action">
+            <a class="btn" onclick=<%= "$('#unlockModal-#{bookmark.id}').modal('open');" %>>実績を解除</a>
+            <div id="unlockModal-<%= bookmark.id %>" class="modal">
               <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title"><%= bookmark.achievement.title %></h5>
-                </div>
-                <div class="modal-body" id="modal-body-<%= bookmark.id %>">
-                </div>
-                <div class="modal-footer" id="modal-footer-<%= bookmark.id %>">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">戻る</button>
-                  <%= button_to '解除', user_bookmark_path(current_user, bookmark), remote: true, method: :patch, class: "btn btn-primary" %>
-                </div>
+                <h4><%= bookmark.achievement.title %></h4>
+                <div id="modal-body-<%= bookmark.id %>"></div>
+              </div>
+              <div class="modal-footer" id="modal-footer-<%= bookmark.id %>">
+                <%= button_to '解除', user_bookmark_path(current_user, bookmark), remote: true, method: :patch, class: "btn btn-primary" %>
               </div>
             </div>
           </div>
         <% end %>
       </div>
     </div>
-    <br>
-  </div>
-<% end %>
+  <% end %>
+</div>

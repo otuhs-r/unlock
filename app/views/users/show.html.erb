@@ -1,28 +1,27 @@
-<br>
-<%= image_tag @user.image_url, class: "rounded-circle" %>
-<%= @user.nickname %>
-<%= link_to '登録実績編集', edit_user_path(current_user), class: "btn btn-info" if @user == current_user %>
-<br>
-<br>
-
-<ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="pills-unlocked-tab" data-toggle="pill" href="#pills-unlocked" role="tab" aria-controls="pills-unlocked" aria-selected="true">解除済</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-locked-tab" data-toggle="pill" href="#pills-locked" role="tab" aria-controls="pills-locked" aria-selected="false">未解除</a>
-  </li>
-</ul>
-<br>
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-unlocked" role="tabpanel" aria-labelledby="pills-unlocked-tab">
-    <div class="row">
-      <%= render 'bookmarks', { bookmarks: @unlocked_bookmarks } %>
-    </div>
+<% if @user == current_user %>
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large red" href="<%= edit_user_path(current_user) %>">
+      <i class="large material-icons">settings</i>
+    </a>
   </div>
-  <div class="tab-pane fade" id="pills-locked" role="tabpanel" aria-labelledby="pills-locked-tab">
-    <div class="row">
-      <%= render 'bookmarks', { bookmarks: @locked_bookmarks } %>
-    </div>
+<% end %>
+<br>
+<div class="row valign-wrapper">
+  <%= image_tag @user.image_url, class: "circle responsive-img" %>
+  <span class="black-text"><%= @user.nickname %></span>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s3"><a href="#unlocked">解除済</a></li>
+      <li class="tab col s3"><a href="#locked">未解除</a></li>
+    </ul>
+  </div>
+  <div id="unlocked" class="col s12">
+    <%= render 'bookmarks', { bookmarks: @unlocked_bookmarks } %>
+  </div>
+  <div id="locked" class="col s12">
+    <%= render 'bookmarks', { bookmarks: @locked_bookmarks } %>
   </div>
 </div>

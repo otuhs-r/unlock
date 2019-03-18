@@ -2,23 +2,23 @@
 <%= form_with(model: @achievement, local: true) do |form| %>
   <div class="row">
     <div class="col-12">
-      <div class="form_group">
+      <div>
         <%= form.label :title %>
-        <%= form.text_field :title, class: "form-control" %>
+        <%= form.text_field :title %>
       </div>
       <br>
-      <div class="form_group">
-        <%= form.label :tag_list %>
-        <%= form.text_field :tag_list, class: "form-control" %>
+      <%= form.label :tag_list %>
+      <div class="chips">
       </div>
+      <%= form.hidden_field :tag_list %>
     </div>
   </div>
   <br>
   <div class="row">
     <div class="col-5">
       <div class="actions">
-        <%= form.submit class: "btn btn-success" %>
-        <%= link_to '戻る', achievements_path, class: "btn btn-secondary" %>
+        <%= form.submit class: "btn" %>
+        <%= link_to '戻る', achievements_path, class: "btn grey" %>
       </div>
     </div>
   </div>
