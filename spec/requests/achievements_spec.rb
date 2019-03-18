@@ -27,7 +27,9 @@ describe AchievementsController, type: :request do
 
   describe 'POST #create' do
     context 'パラメータが妥当な場合' do
-      before { allow_any_instance_of(ApplicationController).to receive(:login_required) }
+      let(:user) { create(:user) }
+      let(:achievement) { create(:achievement) }
+      before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user) }
 
       it 'リクエストが成功する' do
         post achievements_url, params: { achievement: attributes_for(:achievement) }
@@ -40,9 +42,24 @@ describe AchievementsController, type: :request do
         end.to change(Achievement, :count).by(1)
       end
 
-      it 'リダイレクトする' do
-        post achievements_url, params: { achievement: attributes_for(:achievement) }
-        expect(response).to redirect_to achievements_url
+      it 'ブックマークされる' do
+        expect do
+          post achievements_url, params: { achievement: attributes_for(:achievement) }
+        end.to change(Bookmark, :count).by(1)
+      end
+
+      context '登録のみの場合' do
+        it '実績一覧ページにリダイレクトする' do
+          post achievements_url, params: { achievement: attributes_for(:achievement), only_create: '' }
+          expect(response).to redirect_to achievements_url
+        end
+      end
+
+      context '登録かつ解除の場合' do
+        it '実績解除ページにリダイレクトする' do
+          post achievements_url, params: { achievement: attributes_for(:achievement) }
+          expect(response).to redirect_to user_bookmark_path(user, Bookmark.last)
+        end
       end
     end
 

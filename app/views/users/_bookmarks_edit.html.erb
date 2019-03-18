@@ -9,8 +9,8 @@
           <% end %>
         </div>
         <div class="card-action">
-          <%= link_to '解除取消', user_bookmark_path(current_user, bookmark), method: :patch, class: "btn yellow darken-4" if bookmark.unlocked? %>
-          <%= link_to 'ストック取消', user_bookmark_path(current_user, bookmark), method: :delete, class: "btn red darken-4" %>
+          <%= link_to '解除取消', user_bookmark_path(current_user, bookmark), method: :patch, class: "btn orange" if bookmark.unlocked? %>
+          <%= link_to 'ストック取消', user_bookmark_path(current_user, bookmark), method: :delete, class: "btn red" %>
         </div>
       </div>
     </div>

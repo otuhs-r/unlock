@@ -13,7 +13,11 @@ class AchievementsController < ApplicationController
     @achievement = Achievement.new(achievement_params)
 
     if @achievement.save
-      redirect_to achievements_path
+      bookmark = Bookmark.new(user_id: current_user.id,
+                              achievement_id: @achievement.id,
+                              status: params[:only_create] ? :locked : :unlocked)
+      bookmark.save
+      redirect_to params[:only_create] ? achievements_path : user_bookmark_path(current_user, bookmark)
     else
       render :new
     end

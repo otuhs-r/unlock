@@ -8,10 +8,16 @@
 <br>
 <div class="row valign-wrapper">
   <%= image_tag @user.image_url, class: "circle responsive-img" %>
-  <span class="black-text"><%= @user.nickname %></span>
+  <h4 class="black-text"><%= @user.nickname %> さんの実績</h4>
 </div>
-
 <div class="row">
+  <% if @user == current_user %>
+    <div class="col s12">
+      <%= link_to '新しい実績を作る', new_achievement_path, class: "btn" %>
+    </div>
+    <br>
+    <br>
+  <% end %>
   <div class="col s12">
     <ul class="tabs">
       <li class="tab col s3"><a href="#unlocked">解除済</a></li>

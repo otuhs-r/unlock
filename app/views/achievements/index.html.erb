@@ -1,9 +1,13 @@
-<div class="fixed-action-btn">
-  <a class="btn-floating btn-large red" href="<%= new_achievement_path  %>">
-    <i class="large material-icons">mode_edit</i>
-  </a>
-</div>
+<% if current_user %>
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large red" href="<%= new_achievement_path  %>">
+      <i class="large material-icons">mode_edit</i>
+    </a>
+  </div>
+<% end %>
 
+<h4 class="header">みんなの実績</h4>
+<p>なにかができるようになったとき、初めての体験をしたとき、人生のイベントを経験したとき、実績を解除してシェアしよう！</p>
 <div class="row">
   <% @achievements.each do |achievement| %>
     <div class="col s12">
