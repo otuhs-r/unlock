@@ -18,10 +18,25 @@ describe AchievementsController, type: :request do
   end
 
   describe 'GET #new' do
-    it 'リクエストが成功する' do
+    let!(:achievement1) { create(:achievement) }
+    let!(:achievement2) { create(:marriage) }
+    let!(:tag) { create(:tag) }
+
+    before do
       allow_any_instance_of(ApplicationController).to receive(:login_required)
+      achievement1.tag_list.add(tag)
+      achievement1.save
+    end
+
+    it 'リクエストが成功する' do
       get new_achievement_url
       expect(response.status).to eq 200
+    end
+
+    it 'オートコンプリート用データが渡されている' do
+      get new_achievement_url
+      expect(response.body).to include '{"test_title":null,"Marriage":null}'
+      expect(response.body).to include '{"test_tag":null}'
     end
   end
 

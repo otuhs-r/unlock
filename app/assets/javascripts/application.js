@@ -22,18 +22,6 @@ $(document).on('turbolinks:load', function() {
   $(".dropdown-trigger").dropdown();
   $('.fixed-action-btn').floatingActionButton();
   $('.tabs').tabs();
-  $('.chips').chips({
-    placeholder: '5つまで',
-    limit: 5,
-    onChipAdd: function() {
-      data = M.Chips.getInstance($('.chips')).chipsData;
-      document.getElementById('achievement_tag_list').value = data.map(x => x.tag);
-    },
-    onChipDelete: function() {
-      data = M.Chips.getInstance($('.chips')).chipsData;
-      document.getElementById('achievement_tag_list').value = data.map(x => x.tag);
-    }
-  });
   $('.modal').modal({
     onCloseEnd: function() {
       if (document.getElementById('unlock-sign') != null) {

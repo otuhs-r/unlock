@@ -7,6 +7,8 @@ class AchievementsController < ApplicationController
 
   def new
     @achievement = Achievement.new
+    @titles_json = Achievement.all.map { |achievement| [achievement.title, nil] }.to_h.to_json
+    @chips_json = ActsAsTaggableOn::Tag.all.map { |chip| [chip.name, nil] }.to_h.to_json
   end
 
   def create
