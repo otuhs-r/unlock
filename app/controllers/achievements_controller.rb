@@ -21,6 +21,13 @@ class AchievementsController < ApplicationController
     end
   end
 
+  def search
+    search_words = params[:search].split.map { |word| "%#{word}%" }
+    achievements_title_hit = Achievement.ransack(title_matches_any: search_words).result
+    achievements_tag_hit = Achievement.tagged_with(params[:search].split, any: true, wild: true)
+    @achievements = achievements_title_hit.to_a.concat(achievements_tag_hit.to_a)
+  end
+
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.

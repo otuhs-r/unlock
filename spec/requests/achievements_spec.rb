@@ -130,4 +130,29 @@ describe AchievementsController, type: :request do
       end
     end
   end
+
+  describe 'GET #search' do
+    let!(:achievement1) { create(:achievement) }
+    let!(:achievement2) { create(:marriage) }
+    let!(:achievement3) { create(:childbirth) }
+    let!(:tag) { create(:tag) }
+
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:login_required)
+      achievement3.tag_list.add(tag)
+      achievement3.save
+    end
+
+    it 'リクエストが成功する' do
+      get search_url, params: { search: "test" }, xhr: true
+      expect(response.status).to eq 200
+    end
+
+    it '実績が絞り込まれる' do
+      get search_url, params: { search: "test" }, xhr: true
+      expect(response.body).to include 'test_title'
+      expect(response.body).to include 'Childbirth'
+      expect(response.body).to_not include 'Marriage'
+    end
+  end
 end

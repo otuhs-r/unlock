@@ -29,7 +29,7 @@
             <% if current_user %>
               <li><a class="dropdown-trigger" href="#!" data-target="logined_dropdown_menu"><%= current_user.nickname %><i class="material-icons right">arrow_drop_down</i></a></li>
             <% else %>
-              <%= link_to 'Twitterログイン', '/auth/twitter', class: "nav-link" %>
+              <li><%= link_to 'Twitterログイン', '/auth/twitter', class: "nav-link" %></li>
             <% end %>
           </ul>
         </div>
@@ -38,8 +38,8 @@
     <ul class="sidenav" id="mobile">
       <% if current_user %>
         <li><%= link_to 'マイページ', user_path(current_user), class: "dropdown-item" %></li>
-        <li><%= link_to 'タグ一覧', tags_path, class: "dropdown-item" %></li>
         <li><%= link_to 'みんなの実績', achievements_path, class: "dropdown-item" %></li>
+        <li><%= link_to 'タグ一覧', tags_path, class: "dropdown-item" %></li>
         <li class="divider"></li>
         <li><%= link_to 'ログアウト', logout_path, class: "dropdown-item" %></li>
       <% else %>
