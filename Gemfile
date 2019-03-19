@@ -43,6 +43,7 @@ gem 'mini_magick'
 gem 'mini_racer'
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'ransack', '~> 2.1.1'
 gem 'rubocop', require: false
 
 group :development, :test do

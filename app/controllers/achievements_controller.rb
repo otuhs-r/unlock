@@ -7,6 +7,8 @@ class AchievementsController < ApplicationController
 
   def new
     @achievement = Achievement.new
+    @titles_json = Achievement.all.map { |achievement| [achievement.title, nil] }.to_h.to_json
+    @chips_json = ActsAsTaggableOn::Tag.all.map { |chip| [chip.name, nil] }.to_h.to_json
   end
 
   def create
@@ -17,6 +19,13 @@ class AchievementsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def search
+    search_words = params[:search].split.map { |word| "%#{word}%" }
+    achievements_title_hit = Achievement.ransack(title_matches_any: search_words).result
+    achievements_tag_hit = Achievement.tagged_with(params[:search].split, any: true, wild: true)
+    @achievements = achievements_title_hit.to_a.concat(achievements_tag_hit.to_a)
   end
 
   private

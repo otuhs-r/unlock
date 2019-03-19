@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/logout' => 'sessions#destroy'
   get 'images/ogp.png', to: 'images#ogp', as: 'images_ogp'
+  get 'search', to: 'achievements#search'
 end

@@ -18,10 +18,25 @@ describe AchievementsController, type: :request do
   end
 
   describe 'GET #new' do
-    it 'リクエストが成功する' do
+    let!(:achievement1) { create(:achievement) }
+    let!(:achievement2) { create(:marriage) }
+    let!(:tag) { create(:tag) }
+
+    before do
       allow_any_instance_of(ApplicationController).to receive(:login_required)
+      achievement1.tag_list.add(tag)
+      achievement1.save
+    end
+
+    it 'リクエストが成功する' do
       get new_achievement_url
       expect(response.status).to eq 200
+    end
+
+    it 'オートコンプリート用データが渡されている' do
+      get new_achievement_url
+      expect(response.body).to include '{"test_title":null,"Marriage":null}'
+      expect(response.body).to include '{"test_tag":null}'
     end
   end
 
@@ -113,6 +128,31 @@ describe AchievementsController, type: :request do
           post achievements_url, params: { achievement: attributes_for(:achievement, :invalid) }
         end.to_not change(Achievement, :count)
       end
+    end
+  end
+
+  describe 'GET #search' do
+    let!(:achievement1) { create(:achievement) }
+    let!(:achievement2) { create(:marriage) }
+    let!(:achievement3) { create(:childbirth) }
+    let!(:tag) { create(:tag) }
+
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:login_required)
+      achievement3.tag_list.add(tag)
+      achievement3.save
+    end
+
+    it 'リクエストが成功する' do
+      get search_url, params: { search: "test" }, xhr: true
+      expect(response.status).to eq 200
+    end
+
+    it '実績が絞り込まれる' do
+      get search_url, params: { search: "test" }, xhr: true
+      expect(response.body).to include 'test_title'
+      expect(response.body).to include 'Childbirth'
+      expect(response.body).to_not include 'Marriage'
     end
   end
 end
