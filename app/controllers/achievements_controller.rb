@@ -10,14 +10,10 @@ class AchievementsController < ApplicationController
   end
 
   def create
-    @achievement = Achievement.new(achievement_params)
+    @achievement = Achievement.find_by(title: achievement_params[:title]) || Achievement.new(achievement_params)
 
     if @achievement.save
-      bookmark = Bookmark.new(user_id: current_user.id,
-                              achievement_id: @achievement.id,
-                              status: params[:only_create] ? :locked : :unlocked)
-      bookmark.save
-      redirect_to params[:only_create] ? achievements_path : user_bookmark_path(current_user, bookmark)
+      create_bookmark(@achievement)
     else
       render :new
     end
@@ -28,5 +24,16 @@ class AchievementsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def achievement_params
     params.require(:achievement).permit(:title, :tag_list)
+  end
+
+  def create_bookmark(achievement)
+    bookmark = Bookmark.new(user_id: current_user.id,
+                            achievement_id: achievement.id,
+                            status: params[:only_create] ? :locked : :unlocked)
+    if bookmark.save
+      redirect_to params[:only_create] ? user_path(current_user) : user_bookmark_path(current_user, bookmark)
+    else
+      render :new
+    end
   end
 end
