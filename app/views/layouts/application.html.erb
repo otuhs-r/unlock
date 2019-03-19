@@ -14,6 +14,7 @@
     <ul id="logined_dropdown_menu" class="dropdown-content">
       <% if current_user %>
         <li><%= link_to 'マイページ', user_path(current_user), class: "dropdown-item" %></li>
+        <li><%= link_to 'みんなの実績', achievements_path, class: "dropdown-item" %></li>
         <li><%= link_to 'タグ一覧', tags_path, class: "dropdown-item" %></li>
         <li class="divider"></li>
         <li><%= link_to 'ログアウト', logout_path, class: "dropdown-item" %></li>
