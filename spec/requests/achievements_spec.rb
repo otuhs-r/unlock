@@ -76,6 +76,11 @@ describe AchievementsController, type: :request do
             post achievements_url, params: { achievement: attributes_for(:achievement) }
             expect(response).to redirect_to user_bookmark_path(user, Bookmark.last)
           end
+
+          it 'デフォルトの解除日が設定される' do
+            post achievements_url, params: { achievement: attributes_for(:achievement) }
+            expect(Bookmark.last.unlock_date).to eq Time.zone.now.to_date
+          end
         end
       end
 

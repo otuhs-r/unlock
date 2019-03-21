@@ -13,6 +13,8 @@ ja:
       achievement:
         title: タイトル
         tag_list: タグ
+      bookmark:
+        unlock_date: 解除日
   date:
     abbr_day_names:
     - 日

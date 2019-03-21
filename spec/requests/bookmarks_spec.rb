@@ -106,14 +106,30 @@ describe BookmarksController, type: :request do
       before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user) }
 
       it 'リクエストが成功する' do
-        patch user_bookmark_url(user, bookmark)
+        patch user_bookmark_url(user, bookmark), params: { bookmark: { achievement_id: achievement.id } }
         expect(response.status).to eq 302
       end
 
       it '実績が解除される' do
         expect do
-          patch user_bookmark_url(user, bookmark)
+          patch user_bookmark_url(user, bookmark), params: { bookmark: { achievement_id: achievement.id } }
         end.to change { Bookmark.find(bookmark.id).status }.from('locked').to('unlocked')
+      end
+
+      context '解除日が指定されている場合' do
+        it '解除日が設定される' do
+          expect do
+            patch user_bookmark_url(user, bookmark), params: { bookmark: { achievement_id: achievement.id, unlock_date: '2019-03-20' } }
+          end.to change { Bookmark.find(bookmark.id).unlock_date }.from(nil).to('2019-03-20'.to_date)
+        end
+      end
+
+      context '解除日が指定されていない場合' do
+        it 'デフォルトの解除日が設定される' do
+          expect do
+            patch user_bookmark_url(user, bookmark), params: { bookmark: { achievement_id: achievement.id } }
+          end.to change { Bookmark.find(bookmark.id).unlock_date }.from(nil).to(Time.zone.now.to_date)
+        end
       end
     end
 

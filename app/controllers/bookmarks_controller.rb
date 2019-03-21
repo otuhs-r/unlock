@@ -18,7 +18,9 @@ class BookmarksController < ApplicationController
 
   def update
     @bookmark = current_user.bookmarks.find(params[:id])
-    @bookmark.reverse.save
+    @bookmark.reverse
+    @bookmark.unlock_date = unlock_date if @bookmark.unlocked?
+    @bookmark.save
 
     respond_to do |format|
       format.html { redirect_back(fallback_location: user_path(current_user)) }
@@ -35,11 +37,15 @@ class BookmarksController < ApplicationController
   private
 
   def bookmark_params
-    params.require(:bookmark).permit(:achievement_id)
+    params.require(:bookmark).permit(:achievement_id, :unlock_date)
   end
 
   def correct_user
     user = User.find(params[:user_id])
     redirect_to root_path unless user == current_user
+  end
+
+  def unlock_date
+    bookmark_params[:unlock_date].present? ? bookmark_params[:unlock_date] : Time.zone.now.to_date
   end
 end
