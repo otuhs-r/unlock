@@ -11,4 +11,8 @@ class Bookmark < ApplicationRecord
     locked? ? unlocked! : locked!
     self
   end
+
+  def unlock_date
+    self[:unlock_date] if unlocked?
+  end
 end

@@ -53,5 +53,18 @@ describe Achievement do
         expect(bookmark.reverse.unlocked?).to eq false
       end
     end
+
+    describe 'Bookmark#unlock_date' do
+      let(:bookmark) { build(:bookmark, user: create(:user), achievement: create(:achievement), unlock_date: '2019-3-21') }
+
+      it '解除されていなかったら nil を返す' do
+        expect(bookmark.unlock_date).to eq nil
+      end
+
+      it '解除されていたら解除日を返す' do
+        bookmark.unlocked!
+        expect(I18n.l(bookmark.unlock_date)).to eq '2019/03/21'
+      end
+    end
   end
 end

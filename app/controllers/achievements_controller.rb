@@ -15,7 +15,7 @@ class AchievementsController < ApplicationController
     @achievement = Achievement.find_by(title: achievement_params[:title]) || Achievement.new(achievement_params)
 
     if @achievement.save
-      create_bookmark(@achievement)
+      create_bookmark
     else
       render :new
     end
@@ -35,14 +35,21 @@ class AchievementsController < ApplicationController
     params.require(:achievement).permit(:title, :tag_list)
   end
 
-  def create_bookmark(achievement)
-    bookmark = Bookmark.new(user_id: current_user.id,
-                            achievement_id: achievement.id,
-                            status: params[:only_create] ? :locked : :unlocked)
+  def create_bookmark
+    bookmark = Bookmark.new(bookmark_params)
     if bookmark.save
       redirect_to params[:only_create] ? user_path(current_user) : user_bookmark_path(current_user, bookmark)
     else
       render :new
     end
+  end
+
+  def bookmark_params
+    {
+      user_id: current_user.id,
+      achievement_id: @achievement.id,
+      unlock_date: Time.zone.now.to_date,
+      status: params[:only_create] ? :locked : :unlocked
+    }
   end
 end

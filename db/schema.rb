@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_15_115510) do
+ActiveRecord::Schema.define(version: 2019_03_20_235748) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 2019_03_15_115510) do
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "unlock_date"
+    t.index ["unlock_date"], name: "index_bookmarks_on_unlock_date"
     t.index %w[user_id achievement_id], name: "index_bookmarks_on_user_id_and_achievement_id", unique: true
   end
 
