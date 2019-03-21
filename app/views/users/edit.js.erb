@@ -1,0 +1,2 @@
+$("#unlocked").html('<%= j(render "bookmarks_edit", { bookmarks: @unlocked_bookmarks, status: 'unlocked' }) %>')
+$("#locked").html('<%= j(render "bookmarks_edit", { bookmarks: @locked_bookmarks, status: 'locked' }) %>')

@@ -12,9 +12,9 @@
     </ul>
   </div>
   <div id="unlocked" class="col s12">
-    <%= render 'bookmarks_edit', { bookmarks: @unlocked_bookmarks } %>
+    <%= render 'bookmarks_edit', { bookmarks: @unlocked_bookmarks, status: 'unlocked' } %>
   </div>
   <div id="locked" class="col s12">
-    <%= render 'bookmarks_edit', { bookmarks: @locked_bookmarks } %>
+    <%= render 'bookmarks_edit', { bookmarks: @locked_bookmarks, status: 'locked' } %>
   </div>
 </div>

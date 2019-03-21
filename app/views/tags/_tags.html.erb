@@ -1,0 +1,6 @@
+<div class="collection" id="tags">
+  <% tags.each do |tag| %>
+    <%= link_to "#{tag.name} (#{tag.taggings_count})", tag_path(tag), class: "collection-item" %>
+  <% end %>
+</div>
+<%= paginate tags, remote: true %>

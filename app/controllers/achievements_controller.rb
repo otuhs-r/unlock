@@ -2,7 +2,7 @@ class AchievementsController < ApplicationController
   before_action :login_required, only: %i[new create]
 
   def index
-    @achievements = Achievement.includes(:users)
+    @achievements = Achievement.includes(:users).order(:created_at).page(params[:page]).per(10)
   end
 
   def new
@@ -22,10 +22,9 @@ class AchievementsController < ApplicationController
   end
 
   def search
-    search_words = params[:search].split.map { |word| "%#{word}%" }
     achievements_title_hit = Achievement.ransack(title_matches_any: search_words).result
     achievements_tag_hit = Achievement.tagged_with(params[:search].split, any: true, wild: true)
-    @achievements = achievements_title_hit.to_a.concat(achievements_tag_hit.to_a)
+    @achievements = Kaminari.paginate_array(achievements_title_hit.to_a.concat(achievements_tag_hit.to_a)).page(params[:page]).per(10)
   end
 
   private
@@ -51,5 +50,9 @@ class AchievementsController < ApplicationController
       unlock_date: Time.zone.now.to_date,
       status: params[:only_create] ? :locked : :unlocked
     }
+  end
+
+  def search_words
+    params[:search]&.split&.map { |word| "%#{word}%" }
   end
 end
