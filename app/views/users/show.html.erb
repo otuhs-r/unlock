@@ -25,9 +25,9 @@
     </ul>
   </div>
   <div id="unlocked" class="col s12">
-    <%= render 'bookmarks', { bookmarks: @unlocked_bookmarks } %>
+    <%= render 'bookmarks', { bookmarks: @unlocked_bookmarks, status: 'unlocked' } %>
   </div>
   <div id="locked" class="col s12">
-    <%= render 'bookmarks', { bookmarks: @locked_bookmarks } %>
+    <%= render 'bookmarks', { bookmarks: @locked_bookmarks, status: 'locked' } %>
   </div>
 </div>

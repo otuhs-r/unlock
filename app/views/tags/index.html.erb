@@ -1,7 +1,5 @@
 <br>
 <h4>タグ一覧</h4>
-<div class="collection">
-  <% @tags.each do |tag| %>
-    <%= link_to "#{tag.name} (#{tag.taggings_count})", tag_path(tag), class: "collection-item" %>
-  <% end %>
+<div id="tags">
+  <%= render 'tags', { tags: @tags } %>
 </div>
