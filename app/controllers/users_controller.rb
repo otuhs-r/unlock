@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.includes(:bookmarks).find(params[:id])
-    @unlocked_bookmarks = @user.bookmarks.unlocked
+    @unlocked_bookmarks = @user.bookmarks.unlocked.order(unlock_date: 'DESC')
     @locked_bookmarks = @user.bookmarks.locked
   end
 
