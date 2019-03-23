@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :users, only: %i[show edit] do
     resources :bookmarks, only: %i[create show update destroy]
   end
-  resources :achievements, only: %i[index new create]
+  resources :achievements, only: %i[index show new create]
   resources :tags, only: %i[index show]
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/logout' => 'sessions#destroy'
