@@ -1,2 +1,11 @@
 $("#unlocked").html('<%= j(render "bookmarks", { bookmarks: @unlocked_bookmarks, status: 'unlocked' }) %>')
 $("#locked").html('<%= j(render "bookmarks", { bookmarks: @locked_bookmarks, status: 'locked' }) %>')
+$(document).ready(function(){
+  $('.modal').modal({
+    onCloseEnd: function() {
+      if (document.getElementById('unlock-sign') != null) {
+        window.location.reload();
+      }
+    }
+  });
+});

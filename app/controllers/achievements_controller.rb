@@ -5,6 +5,11 @@ class AchievementsController < ApplicationController
     @achievements = Achievement.includes(:users).order(:created_at).page(params[:page]).per(10)
   end
 
+  def show
+    @achievement = Achievement.includes(:users).find(params[:id])
+    @users = @achievement.unlocked_users.sort { |a, b| b.bookmarks.count <=> a.bookmarks.count }[0..9]
+  end
+
   def new
     @achievement = Achievement.new
     @titles_json = Achievement.all.map { |achievement| [achievement.title, nil] }.to_h.to_json
