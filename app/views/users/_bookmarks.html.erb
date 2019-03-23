@@ -11,7 +11,7 @@
         </div>
         <% if bookmark.user == current_user && bookmark.locked? %>
           <div class="card-action">
-            <a class="btn" onclick=<%= "$('#unlockModal-#{bookmark.id}').modal('open');" %>>実績を解除</a>
+            <button class="btn modal-trigger" data-target=<%= "unlockModal-#{bookmark.id}" %>>実績を解除</button>
             <div id="unlockModal-<%= bookmark.id %>" class="modal">
               <%= form_with(model: bookmark, url: user_bookmark_path(current_user, bookmark), method: :patch) do |form| %>
                 <div class="modal-content">
