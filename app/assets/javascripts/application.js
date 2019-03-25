@@ -33,7 +33,7 @@ $(document).on('turbolinks:load', function() {
     }
   });
   $('.sidenav').sidenav();
-  $(".dropdown-trigger").dropdown();
+  $(".dropdown-trigger").dropdown({ constrainWidth: false });
   $('.fixed-action-btn').floatingActionButton();
   $('.tabs').tabs();
   $('.modal').modal({
@@ -46,5 +46,9 @@ $(document).on('turbolinks:load', function() {
 });
 
 $(document).on('turbolinks:before-visit', function() {
+  M.Sidenav.getInstance(document.querySelector('#mobile')).destroy();
+});
+
+$(document).on('turbolinks:before-cache', function() {
   M.Sidenav.getInstance(document.querySelector('#mobile')).destroy();
 });

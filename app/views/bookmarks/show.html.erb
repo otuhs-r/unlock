@@ -1,5 +1,6 @@
 <% set_meta_tags description: "#{@user.nickname}さんが実績を解除しました！",
                  og: {
+                   title: :description,
                    description: :description,
                    url: user_bookmark_url(@user, @bookmark),
                    image: images_ogp_url(params: { text: @bookmark.achievement.title })
@@ -13,7 +14,7 @@
     <h4><%= "#{@user.nickname} さんが" unless @user == current_user %> 実績を解除しました！</h4>
     <% if @user == current_user %>
       <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
-         data-text="実績を解除しました!"
+         data-text="実績を解除しました! #リアル実績解除 #Unlock"
          data-url="<%= user_bookmark_url(current_user, @bookmark) %>"
          data-lang="ja"
          target="_blank"

@@ -1,5 +1,8 @@
 ---
 ja:
+  views:
+    pagination:
+      truncate: "&hellip;"
   activerecord:
     errors:
       messages:
