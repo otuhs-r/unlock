@@ -1,5 +1,6 @@
 <% set_meta_tags description: "#{@user.nickname}さんが実績を解除しました！",
                  og: {
+                   title: :description,
                    description: :description,
                    url: user_bookmark_url(@user, @bookmark),
                    image: images_ogp_url(params: { text: @bookmark.achievement.title })
