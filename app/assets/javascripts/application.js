@@ -48,3 +48,7 @@ $(document).on('turbolinks:load', function() {
 $(document).on('turbolinks:before-visit', function() {
   M.Sidenav.getInstance(document.querySelector('#mobile')).destroy();
 });
+
+$(document).on('turbolinks:before-cache', function() {
+  M.Sidenav.getInstance(document.querySelector('#mobile')).destroy();
+});
