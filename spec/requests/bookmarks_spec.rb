@@ -156,19 +156,14 @@ describe BookmarksController, type: :request do
       before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user) }
 
       it 'リクエストが成功する' do
-        delete user_bookmark_url(user, bookmark)
-        expect(response.status).to eq 302
+        delete user_bookmark_url(user, bookmark), xhr: true
+        expect(response.status).to eq 200
       end
 
       it 'ブックマークが削除される' do
         expect do
-          delete user_bookmark_url(user, bookmark)
+          delete user_bookmark_url(user, bookmark), xhr: true
         end.to change(Bookmark, :count).by(-1)
-      end
-
-      it 'リダイレクトする' do
-        delete user_bookmark_url(user, bookmark)
-        expect(response).to redirect_to edit_user_url(user)
       end
     end
 

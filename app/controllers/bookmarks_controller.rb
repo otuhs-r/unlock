@@ -29,7 +29,6 @@ class BookmarksController < ApplicationController
   def destroy
     @bookmark = current_user.bookmarks.find(params[:id])
     @bookmark.destroy
-    redirect_to edit_user_path(current_user)
   end
 
   private
