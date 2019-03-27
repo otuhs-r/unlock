@@ -6,19 +6,14 @@ describe BookmarksController, type: :request do
       before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user) }
 
       it 'リクエストが成功する' do
-        post user_bookmarks_url(user), params: { bookmark: { achievement_id: achievement.id } }
-        expect(response.status).to eq 302
+        post user_bookmarks_url(user), params: { bookmark: { achievement_id: achievement.id } }, xhr: true
+        expect(response.status).to eq 200
       end
 
       it 'ブックマークが登録される' do
         expect do
-          post user_bookmarks_url(user), params: { bookmark: { achievement_id: achievement.id } }
+          post user_bookmarks_url(user), params: { bookmark: { achievement_id: achievement.id } }, xhr: true
         end.to change(Bookmark, :count).by(1)
-      end
-
-      it 'リダイレクトする' do
-        post user_bookmarks_url(user), params: { bookmark: { achievement_id: achievement.id } }
-        expect(response).to redirect_to root_url
       end
     end
 
@@ -27,18 +22,18 @@ describe BookmarksController, type: :request do
       before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user) }
 
       it 'リクエストが成功する' do
-        post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }
-        expect(response.status).to eq 302
+        post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }, xhr: true
+        expect(response.status).to eq 200
       end
 
       it 'ブックマークが登録されない' do
         expect do
-          post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }
+          post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }, xhr: true
         end.to_not change(Bookmark, :count)
       end
 
       it 'リダイレクトする' do
-        post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }
+        post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }, xhr: true
         expect(response).to redirect_to root_url
       end
     end
@@ -106,20 +101,20 @@ describe BookmarksController, type: :request do
       before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user) }
 
       it 'リクエストが成功する' do
-        patch user_bookmark_url(user, bookmark), params: { bookmark: { achievement_id: achievement.id } }
-        expect(response.status).to eq 302
+        patch user_bookmark_url(user, bookmark), params: { bookmark: { achievement_id: achievement.id } }, xhr: true
+        expect(response.status).to eq 200
       end
 
       it '実績が解除される' do
         expect do
-          patch user_bookmark_url(user, bookmark), params: { bookmark: { achievement_id: achievement.id } }
+          patch user_bookmark_url(user, bookmark), params: { bookmark: { achievement_id: achievement.id } }, xhr: true
         end.to change { Bookmark.find(bookmark.id).status }.from('locked').to('unlocked')
       end
 
       context '解除日が指定されている場合' do
         it '解除日が設定される' do
           expect do
-            patch user_bookmark_url(user, bookmark), params: { bookmark: { achievement_id: achievement.id, unlock_date: '2019-03-20' } }
+            patch user_bookmark_url(user, bookmark), params: { bookmark: { achievement_id: achievement.id, unlock_date: '2019-03-20' } }, xhr: true
           end.to change { Bookmark.find(bookmark.id).unlock_date }.from(nil).to('2019-03-20'.to_date)
         end
       end
@@ -127,7 +122,7 @@ describe BookmarksController, type: :request do
       context '解除日が指定されていない場合' do
         it 'デフォルトの解除日が設定される' do
           expect do
-            patch user_bookmark_url(user, bookmark), params: { bookmark: { achievement_id: achievement.id } }
+            patch user_bookmark_url(user, bookmark), params: { bookmark: { achievement_id: achievement.id } }, xhr: true
           end.to change { Bookmark.find(bookmark.id).unlock_date }.from(nil).to(Time.zone.now.to_date)
         end
       end
@@ -161,19 +156,14 @@ describe BookmarksController, type: :request do
       before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user) }
 
       it 'リクエストが成功する' do
-        delete user_bookmark_url(user, bookmark)
-        expect(response.status).to eq 302
+        delete user_bookmark_url(user, bookmark), xhr: true
+        expect(response.status).to eq 200
       end
 
       it 'ブックマークが削除される' do
         expect do
-          delete user_bookmark_url(user, bookmark)
+          delete user_bookmark_url(user, bookmark), xhr: true
         end.to change(Bookmark, :count).by(-1)
-      end
-
-      it 'リダイレクトする' do
-        delete user_bookmark_url(user, bookmark)
-        expect(response).to redirect_to edit_user_url(user)
       end
     end
 

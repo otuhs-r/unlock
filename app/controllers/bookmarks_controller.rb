@@ -6,8 +6,11 @@ class BookmarksController < ApplicationController
     @bookmark = Bookmark.new(user_id: current_user.id,
                              achievement_id: bookmark_params[:achievement_id],
                              status: :locked)
-    @bookmark.save
-    redirect_back(fallback_location: root_path)
+    if @bookmark.save
+      render
+    else
+      redirect_to root_path
+    end
   end
 
   def show
@@ -21,17 +24,11 @@ class BookmarksController < ApplicationController
     @bookmark.reverse
     @bookmark.unlock_date = unlock_date if @bookmark.unlocked?
     @bookmark.save
-
-    respond_to do |format|
-      format.html { redirect_back(fallback_location: user_path(current_user)) }
-      format.js
-    end
   end
 
   def destroy
     @bookmark = current_user.bookmarks.find(params[:id])
     @bookmark.destroy
-    redirect_to edit_user_path(current_user)
   end
 
   private
