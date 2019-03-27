@@ -24,11 +24,6 @@ class BookmarksController < ApplicationController
     @bookmark.reverse
     @bookmark.unlock_date = unlock_date if @bookmark.unlocked?
     @bookmark.save
-
-    respond_to do |format|
-      format.html { redirect_back(fallback_location: user_path(current_user)) }
-      format.js
-    end
   end
 
   def destroy
