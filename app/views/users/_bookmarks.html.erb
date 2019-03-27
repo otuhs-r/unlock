@@ -30,12 +30,8 @@
             </div>
           </div>
         <% elsif current_user && bookmark.user != current_user %>
-          <div class="card-action">
-            <% if bookmark.achievement.users.include?(current_user) %>
-              <span class="grey-text text-darken-1">ストック済</span>
-            <% else %>
-              <%= link_to 'ストックする', user_bookmarks_path(current_user, params: { bookmark: { achievement_id: bookmark.achievement.id } }), method: :post %>
-            <% end %>
+          <div class="card-action" id=<%= "card-action-#{bookmark.achievement.id}" %>>
+            <%= render 'card_action', { bookmark: bookmark } %>
           </div>
         <% end %>
       </div>

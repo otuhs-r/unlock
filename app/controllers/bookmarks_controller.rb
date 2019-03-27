@@ -6,8 +6,11 @@ class BookmarksController < ApplicationController
     @bookmark = Bookmark.new(user_id: current_user.id,
                              achievement_id: bookmark_params[:achievement_id],
                              status: :locked)
-    @bookmark.save
-    redirect_back(fallback_location: root_path)
+    if @bookmark.save
+      render
+    else
+      redirect_to root_path
+    end
   end
 
   def show

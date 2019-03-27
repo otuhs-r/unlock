@@ -6,19 +6,14 @@ describe BookmarksController, type: :request do
       before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user) }
 
       it 'リクエストが成功する' do
-        post user_bookmarks_url(user), params: { bookmark: { achievement_id: achievement.id } }
-        expect(response.status).to eq 302
+        post user_bookmarks_url(user), params: { bookmark: { achievement_id: achievement.id } }, xhr: true
+        expect(response.status).to eq 200
       end
 
       it 'ブックマークが登録される' do
         expect do
-          post user_bookmarks_url(user), params: { bookmark: { achievement_id: achievement.id } }
+          post user_bookmarks_url(user), params: { bookmark: { achievement_id: achievement.id } }, xhr: true
         end.to change(Bookmark, :count).by(1)
-      end
-
-      it 'リダイレクトする' do
-        post user_bookmarks_url(user), params: { bookmark: { achievement_id: achievement.id } }
-        expect(response).to redirect_to root_url
       end
     end
 
@@ -27,18 +22,18 @@ describe BookmarksController, type: :request do
       before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user) }
 
       it 'リクエストが成功する' do
-        post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }
-        expect(response.status).to eq 302
+        post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }, xhr: true
+        expect(response.status).to eq 200
       end
 
       it 'ブックマークが登録されない' do
         expect do
-          post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }
+          post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }, xhr: true
         end.to_not change(Bookmark, :count)
       end
 
       it 'リダイレクトする' do
-        post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }
+        post user_bookmarks_url(user), params: { bookmark: { achievement_id: 1 } }, xhr: true
         expect(response).to redirect_to root_url
       end
     end

@@ -1,23 +1,7 @@
 <% achievements.each do |achievement| %>
   <div class="col s12">
-    <div class="card">
-      <div class="card-content">
-        <%= link_to achievement_path(achievement) do %>
-          <span class="card-title"><%= achievement.title %></span>
-        <% end %>
-        <% achievement.tags.each do |tag| %>
-          <%= link_to "##{tag.name}", tag_path(tag), class: "chip" %>
-        <% end %>
-      </div>
-      <% if current_user %>
-        <div class="card-action">
-          <% if achievement.users.include?(current_user) %>
-            <span class="grey-text text-darken-1">ストック済</span>
-          <% else %>
-            <%= link_to 'ストックする', user_bookmarks_path(current_user, params: { bookmark: { achievement_id: achievement.id } }), method: :post %>
-          <% end %>
-        </div>
-      <% end %>
+    <div class="card" id=<%= "achievement-card-#{achievement.id}" %>>
+      <%= render 'achievement_card', { achievement: achievement } %>
     </div>
   </div>
 <% end %>
