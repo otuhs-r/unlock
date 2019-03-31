@@ -1,5 +1,7 @@
 <% if bookmark.achievement.users.include?(current_user) %>
-  <span class="grey-text text-darken-1">ストック済</span>
+  <span class="grey-text text-darken-1 valign-wrapper"><i class="material-icons">folder_special</i>ストック済</span>
 <% else %>
-  <%= link_to 'ストックする', user_bookmarks_path(current_user, params: { bookmark: { achievement_id: bookmark.achievement.id } }), method: :post, remote: true %>
+  <%= link_to user_bookmarks_path(current_user, params: { bookmark: { achievement_id: bookmark.achievement.id } }), method: :post, remote: true, class: "valign-wrapper" do %>
+    <i class="material-icons">folder</i>ストックする
+  <% end %>
 <% end %>
