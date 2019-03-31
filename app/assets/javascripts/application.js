@@ -18,6 +18,7 @@
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {
+  $('.tooltipped').tooltip();
   $('.datepicker').datepicker({
     container: 'body',
     format: 'yyyy/mm/dd',
