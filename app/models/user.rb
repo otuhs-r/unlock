@@ -10,4 +10,12 @@ class User < ApplicationRecord
     user = User.find_or_create_by(provider: attributes[:provider], uid: attributes[:uid])
     user.update_attributes(attributes) && user
   end
+
+  def unlocked_bookmarks
+    bookmarks.unlocked
+  end
+
+  def locked_bookmarks
+    bookmarks.locked
+  end
 end

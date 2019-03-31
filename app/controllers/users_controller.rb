@@ -3,13 +3,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.includes(:bookmarks).find(params[:id])
-    @unlocked_bookmarks = @user.bookmarks.unlocked.order(unlock_date: 'DESC').page(params[:unlocked_page]).per(10)
-    @locked_bookmarks = @user.bookmarks.locked.page(params[:locked_page]).per(10)
+    @unlocked_bookmarks = @user.unlocked_bookmarks.order(unlock_date: 'DESC').page(params[:unlocked_page]).per(10)
+    @locked_bookmarks = @user.locked_bookmarks.order(created_at: 'DESC').page(params[:locked_page]).per(10)
   end
 
   def edit
-    @unlocked_bookmarks = current_user.bookmarks.unlocked.page(params[:unlocked_page]).per(10)
-    @locked_bookmarks = current_user.bookmarks.locked.page(params[:locked_page]).per(10)
+    @unlocked_bookmarks = current_user.unlocked_bookmarks.order(unlock_date: 'DESC').page(params[:unlocked_page]).per(10)
+    @locked_bookmarks = current_user.locked_bookmarks.order(created_at: 'DESC').page(params[:locked_page]).per(10)
   end
 
   private
