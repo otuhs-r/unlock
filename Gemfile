@@ -34,8 +34,12 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
+gem 'activeadmin'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'cancancan'
+gem 'devise'
+gem 'draper'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'materialize-sass', '~> 1.0.0'
@@ -44,6 +48,7 @@ gem 'mini_magick'
 gem 'mini_racer'
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'pundit'
 gem 'ransack', '~> 2.1.1'
 gem 'rubocop', require: false
 

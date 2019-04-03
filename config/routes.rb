@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   root 'achievements#index'
   resources :users, only: %i[show edit] do
     resources :bookmarks, only: %i[create show update destroy]
