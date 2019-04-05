@@ -39,6 +39,7 @@ gem 'acts-as-taggable-on', '~> 6.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'cancancan'
 gem 'devise'
+gem 'dotenv-rails'
 gem 'draper'
 gem 'jquery-rails'
 gem 'kaminari'
