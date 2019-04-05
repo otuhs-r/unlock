@@ -1,5 +1,9 @@
 # README
 
+[![pipeline status](https://gitlab.com/omae-app/unlock/badges/develop/pipeline.svg)](https://gitlab.com/omae-app/unlock/commits/develop)
+
+[![coverage report](https://gitlab.com/omae-app/unlock/badges/develop/coverage.svg)](https://gitlab.com/omae-app/unlock/commits/develop)
+
 ## リアル実績解除アプリ | Unlock
 
 目標の達成や初体験したこと、経験を積んだことを **実績解除** として記録・シェアできたら面白そうだなという思いからこのアプリを作りました。   
