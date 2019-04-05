@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## リアル実績解除アプリ | Unlock
 
-Things you may want to cover:
+目標の達成や初体験したこと、経験を積んだことを **実績解除** として記録・シェアできたら面白そうだなという思いからこのアプリを作りました。   
 
-* Ruby version
+* いつどんな実績を解除したのか振り返ってみたり
+* 他の人が解除している実績を探してそれを目標としてみたり
+* 昨日より何か 1 つでも成長したことを記録する日記代わりにしてみたり
+* etc...
 
-* System dependencies
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+それぞれのいろんな使い方で楽しんでいただけると幸いです。
