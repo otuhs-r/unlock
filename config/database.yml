@@ -83,8 +83,3 @@ production:
   database: unlock_production
   username: unlock
   password: <%= ENV['UNLOCK_DATABASE_PASSWORD'] %>
-staging:
-  <<: *default
-  database: unlock_production
-  username: unlock
-  password: <%= ENV['UNLOCK_DATABASE_PASSWORD'] %>
