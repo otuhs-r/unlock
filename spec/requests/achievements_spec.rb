@@ -40,6 +40,40 @@ describe AchievementsController, type: :request do
     end
   end
 
+  describe 'GET #show' do
+    let(:achievement) { create(:achievement) }
+
+    it 'リクエストが成功する' do
+      get achievement_url(achievement)
+      expect(response.status).to eq 200
+    end
+
+    it '実績タイトルが表示される' do
+      get achievement_url(achievement)
+      expect(response.body).to include 'test_title'
+    end
+
+    context '実績を解除したユーザがいない場合' do
+      let!(:user) { create(:user) }
+      let!(:bookmark) { create(:bookmark, user: user, achievement: achievement) }
+
+      it 'ユーザ名が表示されない' do
+        get achievement_url(achievement)
+        expect(response.body).to_not include 'test_user'
+      end
+    end
+
+    context '実績を解除したユーザがいる場合' do
+      let!(:user) { create(:user) }
+      let!(:bookmark) { create(:bookmark, status: :unlocked, user: user, achievement: achievement) }
+
+      it 'ユーザ名が表示される' do
+        get achievement_url(achievement)
+        expect(response.body).to include 'test_user'
+      end
+    end
+  end
+
   describe 'POST #create' do
     context 'パラメータが妥当な場合' do
       context '新しい実績が作成される場合' do
