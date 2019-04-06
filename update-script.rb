@@ -61,8 +61,8 @@ source = Dependabot::Source.new(
 ##############################
 # Fetch the dependency files #
 ##############################
-fetcher = Dependabot::FileFetchers.for_package_manager(package_manager).
-          new(source: source, credentials: credentials)
+fetcher = Dependabot::FileFetchers.for_package_manager(package_manager)
+                                  .new(source: source, credentials: credentials)
 
 files = fetcher.files
 commit = fetcher.commit
@@ -73,7 +73,7 @@ commit = fetcher.commit
 parser = Dependabot::FileParsers.for_package_manager(package_manager).new(
   dependency_files: files,
   source: source,
-  credentials: credentials,
+  credentials: credentials
 )
 
 dependencies = parser.parse
@@ -85,7 +85,7 @@ dep = dependencies.find { |d| d.name == dependency_name }
 checker = Dependabot::UpdateCheckers.for_package_manager(package_manager).new(
   dependency: dep,
   dependency_files: files,
-  credentials: credentials,
+  credentials: credentials
 )
 
 checker.up_to_date?
@@ -98,7 +98,7 @@ updated_deps = checker.updated_dependencies(requirements_to_unlock: :own)
 updater = Dependabot::FileUpdaters.for_package_manager(package_manager).new(
   dependencies: updated_deps,
   dependency_files: files,
-  credentials: credentials,
+  credentials: credentials
 )
 
 updated_files = updater.updated_dependency_files
@@ -111,6 +111,6 @@ pr_creator = Dependabot::PullRequestCreator.new(
   base_commit: commit,
   dependencies: updated_deps,
   files: updated_files,
-  credentials: credentials,
+  credentials: credentials
 )
 pr_creator.create

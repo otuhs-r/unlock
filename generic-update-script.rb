@@ -59,7 +59,7 @@ if ENV["GITHUB_ENTERPRISE_ACCESS_TOKEN"]
     api_endpoint: "https://#{ENV['GITHUB_ENTERPRISE_HOSTNAME']}/api/v3/",
     repo: repo_name,
     directory: directory,
-    branch: nil,
+    branch: nil
   )
 elsif ENV["GITLAB_ACCESS_TOKEN"]
   gitlab_hostname = ENV["GITLAB_HOSTNAME"] || "gitlab.com"
@@ -77,14 +77,14 @@ elsif ENV["GITLAB_ACCESS_TOKEN"]
     api_endpoint: "https://#{gitlab_hostname}/api/v4",
     repo: repo_name,
     directory: directory,
-    branch: nil,
+    branch: nil
   )
 else
   source = Dependabot::Source.new(
     provider: "github",
     repo: repo_name,
     directory: directory,
-    branch: nil,
+    branch: nil
   )
 end
 
@@ -94,7 +94,7 @@ end
 puts "Fetching #{package_manager} dependency files for #{repo_name}"
 fetcher = Dependabot::FileFetchers.for_package_manager(package_manager).new(
   source: source,
-  credentials: credentials,
+  credentials: credentials
 )
 
 files = fetcher.files
@@ -107,7 +107,7 @@ puts "Parsing dependencies information"
 parser = Dependabot::FileParsers.for_package_manager(package_manager).new(
   dependency_files: files,
   source: source,
-  credentials: credentials,
+  credentials: credentials
 )
 
 dependencies = parser.parse
@@ -119,7 +119,7 @@ dependencies.select(&:top_level?).each do |dep|
   checker = Dependabot::UpdateCheckers.for_package_manager(package_manager).new(
     dependency: dep,
     dependency_files: files,
-    credentials: credentials,
+    credentials: credentials
   )
 
   next if checker.up_to_date?
@@ -147,7 +147,7 @@ dependencies.select(&:top_level?).each do |dep|
   updater = Dependabot::FileUpdaters.for_package_manager(package_manager).new(
     dependencies: updated_deps,
     dependency_files: files,
-    credentials: credentials,
+    credentials: credentials
   )
 
   updated_files = updater.updated_dependency_files
@@ -161,7 +161,7 @@ dependencies.select(&:top_level?).each do |dep|
     dependencies: updated_deps,
     files: updated_files,
     credentials: credentials,
-    label_language: true,
+    label_language: true
   )
   pull_request = pr_creator.create
   puts " submitted"
@@ -170,18 +170,18 @@ dependencies.select(&:top_level?).each do |dep|
 
   # Enable GitLab "merge when pipeline succeeds" feature.
   # Merge requests created and successfully tested will be merge automatically.
-  if ENV["GITLAB_AUTO_MERGE"]
-    g = Gitlab.client(
-      endpoint: source.api_endpoint,
-      private_token: ENV["GITLAB_ACCESS_TOKEN"]
-    )
-    g.accept_merge_request(
-      source.repo,
-      pull_request.iid,
-      merge_when_pipeline_succeeds: true,
-      should_remove_source_branch: true
-    )
-  end
+  next unless ENV["GITLAB_AUTO_MERGE"]
+
+  g = Gitlab.client(
+    endpoint: source.api_endpoint,
+    private_token: ENV["GITLAB_ACCESS_TOKEN"]
+  )
+  g.accept_merge_request(
+    source.repo,
+    pull_request.iid,
+    merge_when_pipeline_succeeds: true,
+    should_remove_source_branch: true
+  )
 end
 
 puts "Done"
