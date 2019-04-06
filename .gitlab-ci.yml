@@ -21,8 +21,6 @@ dependabot:
   image: dependabot/dependabot-core
   before_script:
     - bundle install -j $(nproc) --path vendor
-  variables:
-    PACKAGE_MANAGER: $CI_JOB_NAME
   script: bundle exec ruby ./generic-update-script.rb
   only:
     - schedules
