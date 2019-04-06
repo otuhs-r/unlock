@@ -1,10 +1,11 @@
-image: ruby:2.5.1
+image: ruby:2.6.1
 
 cache:
   paths:
     - vendor/ruby
 
 stages:
+  - build
   - static_code_analysis
   - test
   - deploy
@@ -12,9 +13,19 @@ stages:
 before_script:
   - ruby -v
   - apt-get update -q && apt-get install nodejs -yqq
-  - gem install bundler  --no-ri --no-rdoc
+  - gem install bundler --no-document
   - bundle install -j $(nproc) --path vendor
 
+dependabot:
+  stage: build
+  image: dependabot/dependabot-core
+  before_script:
+    - bundle install -j $(nproc) --path vendor
+  variables:
+    PACKAGE_MANAGER: $CI_JOB_NAME
+  script: bundle exec ruby ./generic-update-script.rb
+  only:
+    - schedules
 
 rubocop:
   stage: static_code_analysis
@@ -22,6 +33,8 @@ rubocop:
     - bundle exec rubocop
   only:
     - branches
+  except:
+    - schedules
 
 rspec:
   stage: test
@@ -35,6 +48,8 @@ rspec:
   artifacts:
     paths:
       - coverage/
+  except:
+    - schedules
 
 pages:
   stage: deploy
@@ -48,6 +63,8 @@ pages:
     expire_in: 30 days
   only:
     - master
+  except:
+    - schedules
 
 deploy_staging:
   stage: deploy
@@ -57,3 +74,5 @@ deploy_staging:
     - dpl --provider=heroku --app=unlock-app-staging --api-key=$HEROKU_API_KEY
   only:
     - develop
+  except:
+    - schedules

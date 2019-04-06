@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.6.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
@@ -38,6 +38,7 @@ gem 'activeadmin'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'cancancan'
+gem 'dependabot-omnibus', '~> 0.99.0'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'draper'
@@ -52,6 +53,7 @@ gem 'omniauth-twitter'
 gem 'pundit'
 gem 'ransack', '~> 2.1.1'
 gem 'rubocop', require: false
+gem 'rubocop-performance'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
