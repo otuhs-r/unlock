@@ -13,12 +13,14 @@ stages:
 before_script:
   - ruby -v
   - apt-get update -q && apt-get install nodejs -yqq
-  - gem install bundler  --no-ri --no-rdoc
+  - gem install bundler --no-document
   - bundle install -j $(nproc) --path vendor
 
 dependabot:
   stage: build
   image: dependabot/dependabot-core
+  before_script:
+    - bundle install -j $(nproc) --path vendor
   variables:
     PACKAGE_MANAGER: $CI_JOB_NAME
   script: bundle exec ruby ./generic-update-script.rb
