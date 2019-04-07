@@ -19,6 +19,7 @@ before_script:
 dependabot:
   stage: build
   image: dependabot/dependabot-core
+  cache: {}
   before_script:
     - bundle install -j $(nproc) --path vendor
   script: bundle exec ruby ./generic-update-script.rb
