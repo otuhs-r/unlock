@@ -50,6 +50,7 @@ gem 'mini_magick'
 gem 'mini_racer'
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'parser', '~> 2.6.1'
 gem 'pundit'
 gem 'ransack', '~> 2.1.1'
 gem 'rubocop', require: false

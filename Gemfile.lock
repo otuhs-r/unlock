@@ -471,6 +471,7 @@ DEPENDENCIES
   mini_racer
   omniauth
   omniauth-twitter
+  parser (~> 2.6.1)
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
   pundit
