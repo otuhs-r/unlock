@@ -38,7 +38,7 @@ gem 'activeadmin'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'cancancan'
-gem 'dependabot-omnibus', '~> 0.99.7'
+gem 'dependabot-omnibus', '~> 0.101.2'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'draper'
