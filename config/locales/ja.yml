@@ -1,5 +1,8 @@
 ---
 ja:
+  views:
+    pagination:
+      truncate: "&hellip;"
   activerecord:
     errors:
       messages:
@@ -7,6 +10,14 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+    models:
+      achievement: 実績
+    attributes:
+      achievement:
+        title: タイトル
+        tag_list: タグ
+      bookmark:
+        unlock_date: 解除日
   date:
     abbr_day_names:
     - 日
@@ -142,7 +153,7 @@ ja:
     select:
       prompt: 選択してください
     submit:
-      create: 登録する
+      create: 作成する
       submit: 保存する
       update: 更新する
   number:

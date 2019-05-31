@@ -1,0 +1,30 @@
+<br>
+<div class="row">
+  <div class="col s12">
+    <div class="card" id=<%= "achievement-card-#{@achievement.id}" %>>
+      <%= render 'achievement_card', { achievement: @achievement } %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12">
+    <h4 class="header center-align">実績解除した人</h4>
+    <% @users.each do |user| %>
+      <div class="card">
+        <div class="card-content">
+          <div class="row valign-wrapper">
+            <%= image_tag user.image_url, class: "circle responsive-img" %>
+            <%= link_to user_path(user) do %>
+              <span class="card-title valign-wrapper">
+                <%= user.nickname %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if @users.empty? %>
+      <p class="center-align">まだだれもいないようです...<p>
+    <% end %>
+  </div>
+</div>

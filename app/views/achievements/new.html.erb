@@ -1,0 +1,48 @@
+<h4 class="header">新しい実績</h4>
+<%= form_with(model: @achievement, url: achievements_path, method: :post, local: true) do |form| %>
+  <div class="row">
+    <div class="col-12">
+      <div class="input-field">
+        <%= form.label :title %>
+        <%= form.text_field :title, autocomplete: "off", class: "autocomplete" %>
+      </div>
+      <br>
+      <label>タグ</label>
+      <div class="chips chips-autocomplete">
+      </div>
+      <%= form.hidden_field :tag_list %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-5">
+      <div class="actions">
+        <%= form.submit '作成 & 実績解除', class: "btn red" %>
+        <%= form.submit '作成のみ', class: "btn", name: "only_create" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $('input.autocomplete').autocomplete({
+    data: <%= raw @titles_json %>
+  });
+</script>
+<script>
+  $('.chips-autocomplete').chips({
+    autocompleteOptions: {
+      data:  <%= raw @chips_json %>
+    },
+    placeholder: '5つまで',
+    limit: 5,
+    onChipAdd: function() {
+      data = M.Chips.getInstance($('.chips')).chipsData;
+      document.getElementById('achievement_tag_list').value = data.map(x => x.tag);
+    },
+    onChipDelete: function() {
+      data = M.Chips.getInstance($('.chips')).chipsData;
+      document.getElementById('achievement_tag_list').value = data.map(x => x.tag);
+    }
+  });
+</script>

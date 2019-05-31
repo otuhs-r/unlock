@@ -1,0 +1,7 @@
+<% if @bookmark.unlocked? %>
+  $("#modal-body-<%= @bookmark.id %>").html('<%= j(render "unlocked_modal_body", { bookmark: @bookmark }) %>')
+  $("#modal-footer-<%= @bookmark.id %>").remove()
+<% else %>
+  $("#bookmark-edit-card-<%= @bookmark.id %>").remove()
+  $("#edit-locked-bookmarks").append('<%= j(render "users/bookmark_edit_card", { bookmark: @bookmark }) %>')
+<% end %>

@@ -1,0 +1,18 @@
+<div class="row">
+  <h5 class="center-align">実績を解除しました！</h5>
+  <div class="center-align">
+  <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
+     data-text="実績を解除しました! #リアル実績解除 #Unlock"
+     data-url="<%= user_bookmark_url(current_user, bookmark) %>"
+     data-lang="ja"
+     target="_blank"
+     rel="noopener noreferrer">Tweet</a>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </div>
+  <div id="unlock-sign"></div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <%= image_tag(images_ogp_path(params: { text: bookmark.achievement.title }), class: "responsive-img") %>
+  </div>
+</div>

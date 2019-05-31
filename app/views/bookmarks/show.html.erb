@@ -1,0 +1,64 @@
+<% set_meta_tags description: "#{@user.nickname}さんが実績を解除しました！",
+                 og: {
+                   title: :description,
+                   description: :description,
+                   url: user_bookmark_url(@user, @bookmark),
+                   image: images_ogp_url(params: { text: @bookmark.achievement.title })
+                 } %>
+<br>
+<%= image_tag(images_ogp_path(params: { text: @bookmark.achievement.title }), class: "responsive-img") %>
+<br>
+<br>
+<div class="row">
+  <div class="col-12">
+    <h4><%= "#{@user.nickname} さんが" unless @user == current_user %> 実績を解除しました！</h4>
+    <% if @user == current_user %>
+      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
+         data-text="実績を解除しました! #リアル実績解除 #Unlock"
+         data-url="<%= user_bookmark_url(current_user, @bookmark) %>"
+         data-lang="ja"
+         target="_blank"
+         rel="noopener noreferrer">Tweet</a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <% if current_user %>
+    <% if @user == current_user %>
+      <div class="col s12 l6">
+        <%= link_to 'みんなの実績を見る', achievements_path, class: "btn btn-block" %>
+      </div>
+      <div class="col s12 col l6">
+          <%= link_to '自分の実績を見る', user_path(current_user), class: "btn light-blue accent-3 btn-block" %>
+      </div>
+    <% else %>
+      <div class="col s12 l3">
+        <%= link_to "#{@user.nickname} さんの実績を見る", user_path(@user), class: "btn red btn-block" %>
+      </div>
+      <div class="col s12 l3">
+        <%= link_to 'みんなの実績を見る', achievements_path, class: "btn btn-block" %>
+      </div>
+      <div class="col s12 l3">
+        <%= link_to '自分の実績を見る', user_path(current_user), class: "btn light-blue accent-3 btn-block" %>
+      </div>
+      <div class="col s12 l3">
+        <% if @bookmark.achievement.users.include?(current_user) %>
+          <a class="btn disabled btn-block">ストック済</a>
+        <% else %>
+          <%= link_to 'この実績をストックする', user_bookmarks_path(current_user, params: { bookmark: { achievement_id: @bookmark.achievement.id } }), method: :post, class: "btn orange btn-block" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="col s12 l4">
+      <%= link_to "#{@user.nickname} さんの実績を見る", user_path(@user), class: "btn red btn-block" %>
+    </div>
+    <div class="col s12 l4">
+      <%= link_to 'みんなの実績を見る', achievements_path, class: "btn btn-block" %>
+    </div>
+    <div class="col s12 l4">
+        <%= link_to 'ログインする', '/auth/twitter', class: "btn light-blue accent-3 btn-block" %>
+    </div>
+  <% end %>
+</div>

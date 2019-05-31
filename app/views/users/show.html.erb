@@ -1,0 +1,33 @@
+<% if @user == current_user %>
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large red" href="<%= edit_user_path(current_user) %>">
+      <i class="large material-icons">settings</i>
+    </a>
+  </div>
+<% end %>
+<br>
+<div class="row valign-wrapper">
+  <%= image_tag @user.image_url, class: "circle responsive-img" %>
+  <h4 class="black-text"><%= @user.nickname %>の実績</h4>
+</div>
+<div class="row">
+  <% if @user == current_user %>
+    <div class="col s12">
+      <%= link_to '新しい実績を作る', new_achievement_path, class: "btn" %>
+    </div>
+    <br>
+    <br>
+  <% end %>
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s3"><a href="#unlocked">解除済</a></li>
+      <li class="tab col s3"><a href="#locked">未解除</a></li>
+    </ul>
+  </div>
+  <div id="unlocked" class="col s12">
+    <%= render 'bookmarks', { bookmarks: @unlocked_bookmarks, status: 'unlocked' } %>
+  </div>
+  <div id="locked" class="col s12">
+    <%= render 'bookmarks', { bookmarks: @locked_bookmarks, status: 'locked' } %>
+  </div>
+</div>

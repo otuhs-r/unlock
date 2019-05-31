@@ -1,0 +1,14 @@
+<div class="col s12" id=<%= "bookmark-edit-card-#{bookmark.id}" %>>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title blue-text"><%= bookmark.achievement.title %></span>
+      <% bookmark.achievement.tags.each do |tag| %>
+        <%= link_to "##{tag.name}", tag_path(tag), class: "chip" %>
+      <% end %>
+    </div>
+    <div class="card-action">
+      <%= link_to '解除取消', user_bookmark_path(current_user, bookmark), method: :patch, remote: true, class: "btn orange" if bookmark.unlocked? %>
+      <%= link_to 'ストック取消', user_bookmark_path(current_user, bookmark), method: :delete, remote: true, class: "btn red" %>
+    </div>
+  </div>
+</div>
