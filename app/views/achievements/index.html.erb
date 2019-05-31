@@ -1,0 +1,33 @@
+<% if current_user %>
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large red" href="<%= new_achievement_path  %>">
+      <i class="large material-icons">mode_edit</i>
+    </a>
+  </div>
+<% end %>
+
+<h4 class="header">みんなの実績</h4>
+<div class="row">
+  <div class="col s12">
+    <p>目標を達成したとき、初めての体験をしたとき、人生のイベントを経験したとき… 実績を解除してシェアしよう！</p>
+  </div>
+</div>
+<div class="row">
+  <%= form_with url: search_path, method: :get do |form| %>
+    <div class="col s12">
+    <div class="row">
+      <div class="input-field col s10">
+      <i class="material-icons prefix">search</i>
+        <%= form.label :search, '実績を検索' %>
+        <%= form.text_field :search, autocomplete: "off" %>
+      </div>
+      <div class="input-field col s2">
+      <%= form.submit '検索', class: "btn" %>
+      </div>
+      </div>
+    </div>
+  <% end %>
+  <div id="achievements">
+    <%= render 'achievements', { achievements: @achievements } %>
+  </div>
+</div>

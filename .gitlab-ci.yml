@@ -1,0 +1,95 @@
+image: ruby:2.6.2
+
+stages:
+  - build
+  - static_code_analysis
+  - test
+  - deploy
+
+before_script:
+  - ruby -v
+  - apt-get update -q && apt-get install nodejs -yqq
+  - gem install bundler --no-document
+  - bundle install -j $(nproc) --path vendor
+
+dependabot:
+  stage: build
+  image: dependabot/dependabot-core
+  before_script:
+    - bundle install -j $(nproc) --path vendor
+  script: bundle exec ruby ./generic-update-script.rb
+  only:
+    - schedules
+
+rubocop:
+  stage: static_code_analysis
+  cache:
+    paths:
+      - vendor/ruby
+  script:
+    - bundle exec rubocop
+  only:
+    - branches
+  except:
+    - schedules
+
+rspec:
+  stage: test
+  services:
+    - postgres:latest
+  cache:
+    paths:
+      - vendor/ruby
+  script:
+    - cp config/database.yml.gitlab config/database.yml
+    - RAILS_ENV=test bundle exec rails db:create db:schema:load
+    - RAILS_ENV=test bundle exec rails db:migrate
+    - bundle exec rspec
+  artifacts:
+    paths:
+      - coverage/
+  except:
+    - schedules
+
+pages:
+  stage: deploy
+  dependencies:
+    - rspec
+  script:
+    - mv coverage/ public/
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - master
+  except:
+    - schedules
+
+deploy_staging:
+  stage: deploy
+  environment: staging
+  cache:
+    paths:
+      - vendor/ruby
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=unlock-app-staging --api-key=$HEROKU_API_KEY
+  only:
+    - develop
+  except:
+    - schedules
+
+deploy_production:
+  stage: deploy
+  environment: production
+  cache:
+    paths:
+      - vendor/ruby
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=unlock-app --api-key=$HEROKU_API_KEY
+  only:
+    - master
+  except:
+    - schedules

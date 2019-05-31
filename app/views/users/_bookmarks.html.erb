@@ -1,0 +1,41 @@
+<div class="row">
+  <% bookmarks.each do |bookmark| %>
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <%= link_to achievement_path(bookmark.achievement) do %>
+            <span class="card-title"><%= bookmark.achievement.title %></span>
+          <% end %>
+          <% bookmark.achievement.tags.each do |tag| %>
+            <%= link_to "##{tag.name}", tag_path(tag), class: "chip" %>
+          <% end %>
+          <blockquote class="grey-text"><%= "実績解除日: #{l(bookmark.unlock_date)}" if bookmark.unlock_date %></blockquote>
+        </div>
+        <% if bookmark.user == current_user && bookmark.locked? %>
+          <div class="card-action">
+            <a class="btn" onclick=<%= "$('#unlockModal-#{bookmark.id}').modal('open');" %>>実績を解除</a>
+            <div id="unlockModal-<%= bookmark.id %>" class="modal">
+              <%= form_with(model: bookmark, url: user_bookmark_path(current_user, bookmark), method: :patch) do |form| %>
+                <div class="modal-content">
+                  <h4><%= bookmark.achievement.title %></h4>
+                  <div id="modal-body-<%= bookmark.id %>">
+                    <%= form.label :unlock_date %>
+                    <%= form.text_field :unlock_date, class: "datepicker", value: l(Time.zone.now.to_date) %>
+                  </div>
+                </div>
+                <div class="modal-footer" id="modal-footer-<%= bookmark.id %>">
+                    <%= form.submit '解除', class: "btn" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% elsif current_user && bookmark.user != current_user %>
+          <div class="card-action" id=<%= "card-action-#{bookmark.achievement.id}" %>>
+            <%= render 'card_action', { bookmark: bookmark } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= paginate bookmarks, remote: true, param_name: "#{status}_page" %>

@@ -1,0 +1,2 @@
+$("#achievement-card-<%= @bookmark.achievement.id %>").html('<%= j(render "achievements/achievement_card", { achievement: @bookmark.achievement }) %>')
+$("#card-action-<%= @bookmark.achievement.id %>").html('<%= j(render "users/card_action", { bookmark: @bookmark }) %>')

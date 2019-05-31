@@ -1,15 +1,59 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Unlock</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= display_meta_tags(default_meta_tags) %>
   </head>
 
   <body>
-    <%= yield %>
+    <ul id="logined_dropdown_menu" class="dropdown-content">
+      <% if current_user %>
+        <li><%= link_to 'マイページ', user_path(current_user), class: "dropdown-item" %></li>
+        <li><%= link_to 'みんなの実績', achievements_path, class: "dropdown-item" %></li>
+        <li><%= link_to 'タグ一覧', tags_path, class: "dropdown-item" %></li>
+        <li class="divider"></li>
+        <li><%= link_to 'ログアウト', logout_path, class: "dropdown-item" %></li>
+      <% end %>
+    </ul>
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper">
+          <div class="container">
+            <%= link_to 'Unlock', root_path, class: "brand-logo" %>
+            <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <% if current_user %>
+                <li><a class="dropdown-trigger" href="#!" data-target="logined_dropdown_menu"><%= current_user.nickname %><i class="material-icons right">arrow_drop_down</i></a></li>
+              <% else %>
+                <li><%= link_to 'Twitterログイン', '/auth/twitter', class: "nav-link" %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <ul class="sidenav" id="mobile">
+      <% if current_user %>
+        <li><%= link_to 'マイページ', user_path(current_user), class: "dropdown-item" %></li>
+        <li><%= link_to 'みんなの実績', achievements_path, class: "dropdown-item" %></li>
+        <li><%= link_to 'タグ一覧', tags_path, class: "dropdown-item" %></li>
+        <li class="divider"></li>
+        <li><%= link_to 'ログアウト', logout_path, class: "dropdown-item" %></li>
+      <% else %>
+        <li>
+          <%= link_to '/auth/twitter', class: "nav-link" do %>
+            <span class="light-blue-text text-accent-3">Twitterでログイン</span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

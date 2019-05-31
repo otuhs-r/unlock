@@ -1,0 +1,6 @@
+<div class="row" <%= "id=edit-locked-bookmarks" if status == 'locked'  %>>
+  <% bookmarks.each do |bookmark| %>
+    <%= render 'bookmark_edit_card', { bookmark: bookmark } %>
+  <% end %>
+</div>
+<%= paginate bookmarks, remote: true, param_name: "#{status}_page" %>

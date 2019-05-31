@@ -1,0 +1,25 @@
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large grey" href="<%= user_path(current_user) %>">
+    <i class="large material-icons">arrow_back</i>
+  </a>
+</div>
+<br>
+<div class="row valign-wrapper">
+  <%= image_tag current_user.image_url, class: "circle responsive-img" %>
+  <h4 class="black-text"><%= current_user.nickname %> さんの実績</h4>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s3"><a href="#unlocked">解除済</a></li>
+      <li class="tab col s3"><a href="#locked">未解除</a></li>
+    </ul>
+  </div>
+  <div id="unlocked" class="col s12">
+    <%= render 'bookmarks_edit', { bookmarks: @unlocked_bookmarks, status: 'unlocked' } %>
+  </div>
+  <div id="locked" class="col s12">
+    <%= render 'bookmarks_edit', { bookmarks: @locked_bookmarks, status: 'locked' } %>
+  </div>
+</div>
