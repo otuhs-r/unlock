@@ -79,3 +79,17 @@ deploy_staging:
     - develop
   except:
     - schedules
+
+deploy_production:
+  stage: deploy
+  environment: production
+  cache:
+    paths:
+      - vendor/ruby
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=unlock-app --api-key=$HEROKU_API_KEY
+  only:
+    - master
+  except:
+    - schedules
