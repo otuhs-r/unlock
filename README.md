@@ -1,5 +1,5 @@
 [![pipeline status](https://gitlab.com/omae-app/unlock/badges/develop/pipeline.svg)](https://gitlab.com/omae-app/unlock/pipelines)
-[![coverage report](https://gitlab.com/omae-app/unlock/badges/develop/coverage.svg)](https://gitlab.com/omae-app/unlock/commits/develop)
+[![coverage report](https://gitlab.com/omae-app/unlock/badges/develop/coverage.svg)](https://omae-app.gitlab.io/unlock)
 
 ## リアル実績解除アプリ | Unlock
 
