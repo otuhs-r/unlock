@@ -2,7 +2,7 @@ class AchievementsController < ApplicationController
   before_action :login_required, only: %i[new create]
 
   def index
-    @achievements = Achievement.includes(:users).order(:created_at).page(params[:page]).per(10)
+    @achievements = Achievement.includes(:users).order(created_at: 'DESC').page(params[:page]).per(10)
   end
 
   def show
