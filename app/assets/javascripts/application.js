@@ -36,7 +36,7 @@ $(document).on('turbolinks:load', function() {
   $('.sidenav').sidenav();
   $(".dropdown-trigger").dropdown({ constrainWidth: false });
   $('.fixed-action-btn').floatingActionButton();
-  $('.tabs').tabs();
+  $('.tabs').tabs({ swipeable: true });
   $('.modal').modal({
     onCloseEnd: function() {
       if (document.getElementById('unlock-sign') != null) {
