@@ -1,4 +1,4 @@
-<h4 class="header">新しい実績</h4>
+<h4 class="header center-align">新しい実績</h4>
 <%= form_with(model: @achievement, url: achievements_path, method: :post, local: true) do |form| %>
   <div class="row">
     <div class="col-12">
@@ -17,8 +17,8 @@
   <div class="row">
     <div class="col-5">
       <div class="actions">
-        <%= form.submit '作成 & 実績解除', class: "btn red" %>
-        <%= form.submit '作成のみ', class: "btn", name: "only_create" %>
+        <%= form.submit '作成 & 実績解除', class: "btn" %>
+        <%= form.submit '作成のみ', class: "btn cyan", name: "only_create" %>
       </div>
     </div>
   </div>

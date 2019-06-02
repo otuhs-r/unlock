@@ -6,12 +6,23 @@
   </div>
 <% end %>
 
-<h4 class="header">みんなの実績</h4>
+<h4 class="header center-align">みんなの実績</h4>
 <div class="row">
   <div class="col s12">
     <p>目標を達成したとき、初めての体験をしたとき、人生のイベントを経験したとき… 実績を解除してシェアしよう！</p>
   </div>
 </div>
+
+<div class="row">
+  <div class="col s12 col m5 col l4 col xl3">
+    <% if current_user %>
+      <%= link_to 'マイページへ', user_path(current_user), class: "btn btn-block" %>
+    <% else %>
+      <%= link_to 'Twitter でログイン', '/auth/twitter', class: "btn light-blue accent-3 btn-block" %>
+  <% end %>
+  </div>
+</div>
+
 <div class="row">
   <%= form_with url: search_path, method: :get do |form| %>
     <div class="col s12">

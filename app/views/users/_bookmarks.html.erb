@@ -13,7 +13,7 @@
         </div>
         <% if bookmark.user == current_user && bookmark.locked? %>
           <div class="card-action">
-            <a class="btn" onclick=<%= "$('#unlockModal-#{bookmark.id}').modal('open');" %>>実績を解除</a>
+            <a class="btn" onclick=<%= "$('#unlockModal-#{bookmark.id}').modal('open');" %>><i class="material-icons left">lock_open</i>実績を解除</a>
             <div id="unlockModal-<%= bookmark.id %>" class="modal">
               <%= form_with(model: bookmark, url: user_bookmark_path(current_user, bookmark), method: :patch) do |form| %>
                 <div class="modal-content">
