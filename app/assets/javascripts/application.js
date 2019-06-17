@@ -53,3 +53,4 @@ $(document).on('turbolinks:before-visit', function() {
 $(document).on('turbolinks:before-cache', function() {
   M.Sidenav.getInstance(document.querySelector('#mobile')).destroy();
 });
+//= require serviceworker-companion

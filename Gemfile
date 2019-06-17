@@ -38,7 +38,7 @@ gem 'activeadmin'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'cancancan'
-gem 'dependabot-omnibus', '~> 0.107.23'
+gem 'dependabot-omnibus', '~> 0.108.18'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'draper'
@@ -56,6 +56,7 @@ gem 'pundit'
 gem 'ransack', '~> 2.1.1'
 gem 'rubocop', require: false
 gem 'rubocop-performance'
+gem 'serviceworker-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
