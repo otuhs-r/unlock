@@ -39,5 +39,9 @@ module Unlock
     end
 
     config.time_zone = 'Tokyo'
+
+    Raven.configure do |config|
+      config.dsn = ENV['SENTRY_DSN']
+    end
   end
 end
