@@ -56,6 +56,7 @@ gem 'pundit'
 gem 'ransack', '~> 2.1.1'
 gem 'rubocop', require: false
 gem 'rubocop-performance'
+gem 'sentry-raven'
 gem 'serviceworker-rails'
 
 group :development, :test do
