@@ -6,7 +6,7 @@ class User < ApplicationRecord
     attributes = { provider: auth_hash[:provider],
                    uid: auth_hash[:uid],
                    nickname: auth_hash[:info][:name],
-                   image_url: auth_hash[:info][:image] }
+                   image_url: auth_hash[:extra][:raw_info][:profile_image_url_https] }
     user = User.find_or_create_by(provider: attributes[:provider], uid: attributes[:uid])
     user.update_attributes(attributes) && user
   end
