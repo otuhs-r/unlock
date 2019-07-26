@@ -1,5 +1,5 @@
 class Achievement < ApplicationRecord
-  has_many :bookmarks
+  has_many :bookmarks, dependent: :destroy
   has_many :users, through: :bookmarks
   accepts_nested_attributes_for :bookmarks
   acts_as_taggable
